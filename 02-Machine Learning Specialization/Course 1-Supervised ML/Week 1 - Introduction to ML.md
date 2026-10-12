@@ -203,34 +203,66 @@ Given training points: $(1, 1)$, $(2, 2)$, $(3, 3)$
 
 ### Case 1: $w = 1$ (Perfect Fit)
 - **Model:** $f(x) = 1 \cdot x$
-- **Predictions:** $f(1) = 1$, $f(2) = 2$, $f(3) = 3$[cite: 18]
+- **Predictions:** $f(1) = 1$, $f(2) = 2$, $f(3) = 3$
 - **Cost Calculation:**
-  $$J(1) = \frac{1}{2(3)} \left[(1-1)^2 + (2-2)^2 + (3-3)^2\right] = \frac{1}{6}(0) = 0$$[cite: 18]
-- **Plot Point:** $(w, J(w)) = (1, 0)$[cite: 18]
+  $$J(1) = \frac{1}{2(3)} \left[(1-1)^2 + (2-2)^2 + (3-3)^2\right] = \frac{1}{6}(0) = 0$$
+- **Plot Point:** $(w, J(w)) = (1, 0)$
 
 ### Case 2: $w = 0.5$ (Underpredicting)
-- **Model:** $f(x) = 0.5x$[cite: 19]
-- **Predictions:** $f(1) = 0.5$, $f(2) = 1.0$, $f(3) = 1.5$[cite: 19]
+- **Model:** $f(x) = 0.5x$
+- **Predictions:** $f(1) = 0.5$, $f(2) = 1.0$, $f(3) = 1.5$
 - **Cost Calculation:**
-  $$J(0.5) = \frac{1}{2(3)} \left[(0.5-1)^2 + (1-2)^2 + (1.5-3)^2\right] = \frac{1}{6}\left[0.25 + 1 + 2.25\right] = \frac{3.5}{6} \approx 0.58$$[cite: 19]
-- **Plot Point:** $(w, J(w)) = (0.5, 0.58)$[cite: 19]
+  $$J(0.5) = \frac{1}{2(3)} \left[(0.5-1)^2 + (1-2)^2 + (1.5-3)^2\right] = \frac{1}{6}\left[0.25 + 1 + 2.25\right] = \frac{3.5}{6} \approx 0.58$$
+- **Plot Point:** $(w, J(w)) = (0.5, 0.58)$
 
 ### Case 3: $w = 0$ (Horizontal Line)
-- **Model:** $f(x) = 0$[cite: 20]
-- **Predictions:** $f(1) = 0$, $f(2) = 0$, $f(3) = 0$[cite: 20]
+- **Model:** $f(x) = 0$
+- **Predictions:** $f(1) = 0$, $f(2) = 0$, $f(3) = 0$
 - **Cost Calculation:**
-  $$J(0) = \frac{1}{2(3)} \left[(-1)^2 + (-2)^2 + (-3)^2\right] = \frac{1}{6}(1 + 4 + 9) = \frac{14}{6} \approx 2.33$$[cite: 20]
-- **Plot Point:** $(w, J(w)) = (0, 2.33)$[cite: 20]
+  $$J(0) = \frac{1}{2(3)} \left[(-1)^2 + (-2)^2 + (-3)^2\right] = \frac{1}{6}(1 + 4 + 9) = \frac{14}{6} \approx 2.33$$
+- **Plot Point:** $(w, J(w)) = (0, 2.33)$
 
 ---
 
 ## 3. The Shape of $J(w)$: The Parabola
 
-By evaluating $J(w)$ for various values of $w$ (e.g., $-0.5, 0, 0.5, 1, 1.5, 2, 2.5$), the cost function generates a **bowl-shaped curve (parabola)**[cite: 22].
+By evaluating $J(w)$ for various values of $w$ (e.g., $-0.5, 0, 0.5, 1, 1.5, 2, 2.5$), the cost function generates a **bowl-shaped curve (parabola)**.
 
-- **Minimum Point:** The bottom of the U-shape curve occurs at $w = 1$, where $J(w) = 0$[cite: 23].
-- **Conclusion:** Finding the optimal parameter $w$ means finding the lowest point on the $J(w)$ curve[cite: 25, 26].
+- **Minimum Point:** The bottom of the U-shape curve occurs at $w = 1$, where $J(w) = 0$.
+- **Conclusion:** Finding the optimal parameter $w$ means finding the lowest point on the $J(w)$ curve.
+# Visualizing the Cost Function — 3D Surface & Contour Plots
 
+When optimizing both parameters simultaneously ($w$ and $b$), the cost function $J(w,b)$ transitions from a 2D parabola into a 3D surface plot or a 2D contour plot.
+
+---
+
+## 1. 3D Surface Plot (Soup Bowl Shape)
+
+- **Axes:** 
+  - Horizontal axes represent parameters **$w$** and **$b$
+  - Vertical height axis represents total cost **$J(w,b)$**
+- **Geometry:** Forms a 3D "soup bowl" or "basin" shape
+- **Minimum Point:** The global minimum sits at the absolute bottom/center of the bowl. Any point $(w, b)$ on this surface corresponds to a specific line $f_{w,b}(x) = wx + b$ on the scatter plot.
+
+---
+
+## 2. 2D Contour Plot (Contour Map)
+
+A **contour plot** is created by slicing the 3D surface horizontally at constant cost levels $J(w,b)$ (like topographic elevation maps of mountains):
+
+- **Ellipses / Ovals:** Each ring represents a specific value of $J(w,b)$.
+- **Same-Cost Ring:** All parameter pairs $(w, b)$ lying on the **exact same contour line** produce the **exact same cost $J$.
+- **Center of Ellipses:** The innermost point/center of the concentric rings represents the global **minimum cost** $\min_{w,b} J(w,b)$.
+
+---
+
+## 3. Key Takeaway for Optimization
+
+| Visual Representation | Optimal Fit Location                                |
+| :-------------------- | :-------------------------------------------------- |
+| **Data Scatter Plot** | Line fits through the center of data points.        |
+| **3D Surface Plot**   | Bottom-most point of the bowl.                      |
+| **2D Contour Plot**   | Center-most point of the innermost concentric oval. |
 
 
 
