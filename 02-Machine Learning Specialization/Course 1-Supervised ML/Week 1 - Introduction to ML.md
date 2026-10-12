@@ -35,3 +35,31 @@
 ### Question 2: Types of Unsupervised Learning
 - **Correct Selection:** **Clustering**
 - **Reason:** Clustering groups unlabeled data points based on features without predefined targets.
+
+
+## Linear Regression Model & Terminology
+
+### 1. Regression vs. Classification Core Distinctions
+- **Supervised Learning:** The dataset provides explicit "right answers" (targets $y$ for inputs $x$).
+- **Regression Model:** Predicts **continuous numbers** (infinitely many possible numeric values).
+  - *Example:* Predicting house price based on size ($\text{size} = 1250 \text{ sq ft} \implies \text{price} \approx \$220\text{k}$).
+- **Classification Model:** Predicts **discrete categories** (small/finite set of possible outputs).
+  - *Example:* Cat vs. Dog, Disease diagnosis (Positive/Negative).
+
+---
+
+### 2. Standard Mathematical Notation
+
+| Symbol | Mathematical Term | Description / Example |
+| :--- | :--- | :--- |
+| **$x$** | Input Variable / Feature | Size of house in $\text{ft}^2$ |
+| **$y$** | Output / Target Variable | Price in $\$1000$'s |
+| **$m$** | Number of Training Examples | Total number of rows in data table (e.g., $m = 47$) |
+| **$(x, y)$** | Single Training Example | A specific data pair $(2104, 400)$ |
+| **$(x^{(i)}, y^{(i)})$** | $i^{\text{th}}$ Training Example | The entry at row index $i$ (1st, 2nd, 3rd, ...) |
+
+> [!warning] Critical Notation Rules
+> - **$(i)$ superscript:** Refers to the **row index** in the training set (e.g., $x^{(1)} = 2104$, $x^{(2)} = 1416$).
+> - **Exponent Warning:** $x^{(2)}$ is **NOT** $x^2$ (it is an index indicator, not an exponentiation).
+
+
