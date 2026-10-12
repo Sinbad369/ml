@@ -177,6 +177,60 @@ This ensures predictions $\hat{y}^{(i)}$ are as close as possible to the actual 
 
 
 
+# Cost Function Intuition — Simplified 1D Model
+
+To gain visual intuition for the cost function, we simplify the model by setting **$b = 0$**, forcing the linear regression line to pass directly through the origin $(0,0)$
+
+
+## 1. Model & Cost Function Comparison
+
+| Concept | Full Model ($w, b$) | Simplified Model ($b = 0$) |
+| :--- | :--- | :--- |
+| **Model Function** | $f_{w,b}(x) = wx + b$[cite: 17] | $f_w(x) = wx$[cite: 17] |
+| **Parameters** | $w$ (slope), $b$ (intercept)[cite: 17] | $w$ (slope only)[cite: 17] |
+| **Cost Function** | $J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} (f_{w,b}(x^{(i)}) - y^{(i)})^2$[cite: 17] | $J(w) = \frac{1}{2m} \sum_{i=1}^{m} (wx^{(i)} - y^{(i)})^2$[cite: 17] |
+| **Optimization Goal** | $\min_{w,b} J(w,b)$[cite: 17] | $\min_w J(w)$[cite: 17] |
+
+> [!important] Key Mental Shift
+> - **$f_w(x)$ is a function of $x$:** Given a fixed parameter $w$, it plots a straight line over input features $x$[cite: 18].
+> - **$J(w)$ is a function of $w$:** It maps different values of parameter $w$ to their corresponding cost/error value[cite: 18].
+
+---
+
+## 2. Step-by-Step Calculation Examples ($m = 3$)
+
+Given training points: $(1, 1)$, $(2, 2)$, $(3, 3)$
+
+### Case 1: $w = 1$ (Perfect Fit)
+- **Model:** $f(x) = 1 \cdot x$
+- **Predictions:** $f(1) = 1$, $f(2) = 2$, $f(3) = 3$[cite: 18]
+- **Cost Calculation:**
+  $$J(1) = \frac{1}{2(3)} \left[(1-1)^2 + (2-2)^2 + (3-3)^2\right] = \frac{1}{6}(0) = 0$$[cite: 18]
+- **Plot Point:** $(w, J(w)) = (1, 0)$[cite: 18]
+
+### Case 2: $w = 0.5$ (Underpredicting)
+- **Model:** $f(x) = 0.5x$[cite: 19]
+- **Predictions:** $f(1) = 0.5$, $f(2) = 1.0$, $f(3) = 1.5$[cite: 19]
+- **Cost Calculation:**
+  $$J(0.5) = \frac{1}{2(3)} \left[(0.5-1)^2 + (1-2)^2 + (1.5-3)^2\right] = \frac{1}{6}\left[0.25 + 1 + 2.25\right] = \frac{3.5}{6} \approx 0.58$$[cite: 19]
+- **Plot Point:** $(w, J(w)) = (0.5, 0.58)$[cite: 19]
+
+### Case 3: $w = 0$ (Horizontal Line)
+- **Model:** $f(x) = 0$[cite: 20]
+- **Predictions:** $f(1) = 0$, $f(2) = 0$, $f(3) = 0$[cite: 20]
+- **Cost Calculation:**
+  $$J(0) = \frac{1}{2(3)} \left[(-1)^2 + (-2)^2 + (-3)^2\right] = \frac{1}{6}(1 + 4 + 9) = \frac{14}{6} \approx 2.33$$[cite: 20]
+- **Plot Point:** $(w, J(w)) = (0, 2.33)$[cite: 20]
+
+---
+
+## 3. The Shape of $J(w)$: The Parabola
+
+By evaluating $J(w)$ for various values of $w$ (e.g., $-0.5, 0, 0.5, 1, 1.5, 2, 2.5$), the cost function generates a **bowl-shaped curve (parabola)**[cite: 22].
+
+- **Minimum Point:** The bottom of the U-shape curve occurs at $w = 1$, where $J(w) = 0$[cite: 23].
+- **Conclusion:** Finding the optimal parameter $w$ means finding the lowest point on the $J(w)$ curve[cite: 25, 26].
+
 
 
 
