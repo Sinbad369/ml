@@ -93,3 +93,42 @@ $$f_{w,b}(x) = wx + b$$
 
 - **$\hat{y}$ ("y-hat"):** The **estimated/predicted** value of $y$, distinguishing model output from actual ground-truth labels $y$.
 - **Univariate Linear Regression:** Linear regression with **one variable/feature** $x$.
+
+# Optional Lab: Model Representation
+
+## 1. Mathematical Notation Reference
+
+| General Notation | Description | Python Variable |
+| :--- | :--- | :--- |
+| $x$ | Scalar input feature (e.g., Size in $1000\text{ sqft}$) | `x_train` |
+| $y$ | Scalar target output (e.g., Price in $\$1000\text{s}$) | `y_train` |
+| $x^{(i)}, y^{(i)}$ | $i^{\text{th}}$ Training Example tuple | `x_i, y_i` |
+| $m$ | Total number of training examples | `m` |
+| $w$ | Model parameter: Weight (Slope) | `w` |
+| $b$ | Model parameter: Bias (Y-intercept) | `b` |
+| $f_{w,b}(x^{(i)})$ | Model output/prediction evaluated at $x^{(i)}$ | `f_wb` |
+
+---
+
+## 2. Dataset Setup & Exploration
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 1. Define Training Set (House Size vs. Price)
+x_train = np.array([1.0, 2.0])      # Size in 1000 sqft
+y_train = np.array([300.0, 500.0])  # Price in $1000s
+
+# 2. Get Number of Training Examples (m)
+m = x_train.shape[0]  # Or len(x_train)
+print(f"Number of training examples is: {m}")  # Outputs: 2
+
+# 3. Access Specific Training Example (Zero-Indexed)
+i = 0
+x_i, y_i = x_train[i], y_train[i]
+print(f"(x^({i}), y^({i})) = ({x_i}, {y_i})")  # Outputs: (1.0, 300.0)
+
+
+
+
