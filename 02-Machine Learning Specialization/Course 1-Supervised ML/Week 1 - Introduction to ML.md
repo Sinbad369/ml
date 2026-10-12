@@ -112,7 +112,7 @@ $$f_{w,b}(x) = wx + b$$
 
 ## 2. Dataset Setup & Exploration
 
-```python
+``
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -128,6 +128,54 @@ print(f"Number of training examples is: {m}")  # Outputs: 2
 i = 0
 x_i, y_i = x_train[i], y_train[i]
 print(f"(x^({i}), y^({i})) = ({x_i}, {y_i})")  # Outputs: (1.0, 300.0)
+
+
+
+# Linear Regression — Model Parameters & Cost Function
+
+## 1. Model Parameters ($w$ and $b$)
+
+In the model function $f_{w,b}(x) = wx + b$:
+- **$w$ (Weight / Coefficient / Slope):** Controls the steepness or angle of the line.
+- **$b$ (Bias / Y-intercept):** Controls where the line crosses the y-axis ($x = 0$).
+
+### Visualizing Parameter Effects
+1. **$w = 0, b = 1.5$:** Horizontal line at $y = 1.5$ (constant prediction regardless of $x$).
+2. **$w = 0.5, b = 0$:** Passes through the origin $(0,0)$ with a slope of $0.5$ (rise of $0.5$ for every $1$ unit run).
+3. **$w = 0.5, b = 1$:** Shifted vertically up by $1$ unit, crossing the y-axis at $(0,1)$ with a slope of $0.5$.
+
+---
+
+## 2. The Cost Function (Squared Error)
+
+The **Cost Function** measures how well a choice of $w$ and $b$ fits the training dataset by calculating the total error between predictions $\hat{y}^{(i)}$ and actual targets $y^{(i)}$.
+
+### Error Definition
+$$\text{Error for example } i = \hat{y}^{(i)} - y^{(i)} = f_{w,b}(x^{(i)}) - y^{(i)}$$
+
+### Mathematical Formula: $J(w,b)$
+$$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( \hat{y}^{(i)} - y^{(i)} \right)^2$$
+
+Substituting $\hat{y}^{(i)} = f_{w,b}(x^{(i)})$:
+
+$$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left( f_{w,b}(x^{(i)}) - y^{(i)} \right)^2$$
+
+> [!note] Formula Breakdown
+> - **$m$:** Total number of training examples.
+> - **$\frac{1}{m}$:** Computes the average squared error across all $m$ examples.
+> - **$\frac{1}{2}$:** A mathematical convenience that cancels out the power of $2$ when taking derivatives during Gradient Descent.
+
+---
+
+## 3. Optimization Goal
+
+The objective of linear regression is to find parameter values $w$ and $b$ that **minimize** $J(w,b)$:
+
+$$\min_{w,b} J(w,b)$$
+
+This ensures predictions $\hat{y}^{(i)}$ are as close as possible to the actual target values $y^{(i)}$ across all training examples $(x^{(i)}, y^{(i)})$.
+
+
 
 
 
