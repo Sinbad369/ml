@@ -264,5 +264,43 @@ A **contour plot** is created by slicing the 3D surface horizontally at constant
 | **3D Surface Plot**   | Bottom-most point of the bowl.                      |
 | **2D Contour Plot**   | Center-most point of the innermost concentric oval. |
 
+# Visualization Examples — Contour Plots vs. Model Predictions
+
+Each point $(w, b)$ selected on a 2D contour plot directly defines a specific linear regression line $f(x) = wx + b$ on the scatter plot:
+
+---
+
+## 1. Suboptimal Fits (Points Far From the Center)
+
+### Example 1: Negative Slope, High Intercept
+- **Parameters:** $w = -0.15, b = 800 \implies f(x) = -0.15x + 800$
+- **Contour Position:** High up on the top-left outer ring (far from center).
+- **Fit Result:** Slope goes downhill while data trends uphill $\rightarrow$ **Extremely high cost $J$** (large vertical error bars).
+![[Pasted image 20261012235133.png]]
+
+### Example 2: Horizontal Line (Zero Slope)
+- **Parameters:** $w = 0, b = 360 \implies f(x) = 360$
+- **Contour Position:** Located on an outer ring along the $w = 0$ axis.
+- **Fit Result:** Completely flat line $\rightarrow$ **High cost $J$** (fails to capture the relationship between house size and price).
+![[Pasted image 20261012235143.png]]
+### Example 3: Parallel Line Shift
+- **Parameters:** $w = -0.15, b = 500 \implies f(x) = -0.15x + 500$
+- **Contour Position:** Shifted downwards on the outer rings relative to Example 1.
+- **Fit Result:** Same wrong slope as Example 1, but shifted lower $\rightarrow$ **Still high cost $J$**.
+![[Pasted image 20261012235200.png]]
+---
+
+## 2. Optimal Fit (Point at the Minimum Center)
+
+### Example 4: Minimum Cost Point
+- **Parameters:** $w = 0.13, b = 71 \implies f(x) = 0.13x + 71$
+- **Contour Position:** Sits at the **exact center** of the innermost concentric oval.
+- **Fit Result:** The line passes directly through the middle of the data points, minimizing the sum of squared errors $\rightarrow$ **Global Minimum Cost $\min J(w,b)$**.
+![[Pasted image 20261012235210.png]]
+---
+![[Pasted image 20261012235220.png]]
+## Key Takeaway
+
+Moving closer to the **center of the concentric rings** on a contour plot directly reduces the vertical prediction errors (distances between actual $y^{(i)}$ points and predicted $\hat{y}^{(i)}$ line), yielding the optimal linear regression model.
 
 
