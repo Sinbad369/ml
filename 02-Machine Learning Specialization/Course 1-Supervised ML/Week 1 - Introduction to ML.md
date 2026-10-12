@@ -63,3 +63,33 @@
 > - **Exponent Warning:** $x^{(2)}$ is **NOT** $x^2$ (it is an index indicator, not an exponentiation).
 
 
+## Supervised Learning Model Pipeline & Representation
+
+### 1. Training Workflow
+1. **Training Set:** Consists of **features** ($x$) and **targets** ($y$).
+2. **Learning Algorithm:** Processes training data to produce a mapping function $f$ (the **model**).
+3. **Inference/Prediction:** Feature $x$ goes into model $f$, producing prediction $\hat{y}$ (**y-hat**, estimated value of $y$).
+
+$$\text{Feature } (x) \longrightarrow \text{Model } (f) \longrightarrow \text{Prediction } (\hat{y})$$
+
+---
+
+### 2. Linear Regression Formula (Single Variable)
+
+The hypothesis/model function $f_{w,b}(x)$ is represented as:
+
+$$f_{w,b}(x) = wx + b$$
+
+> [!note] Simplified Notation
+> $f_{w,b}(x)$ can also be written simply as $f(x)$.
+
+- **$w, b$:** Parameters (weights/bias) adjusted by the learning algorithm.
+- **$x$:** Input feature (e.g., house size).
+- **$\hat{y}$:** Predicted output (e.g., estimated price).
+
+---
+
+### 3. Key Terminology
+
+- **$\hat{y}$ ("y-hat"):** The **estimated/predicted** value of $y$, distinguishing model output from actual ground-truth labels $y$.
+- **Univariate Linear Regression:** Linear regression with **one variable/feature** $x$.
