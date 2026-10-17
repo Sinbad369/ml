@@ -303,4 +303,23 @@ Each point $(w, b)$ selected on a 2D contour plot directly defines a specific li
 
 Moving closer to the **center of the concentric rings** on a contour plot directly reduces the vertical prediction errors (distances between actual $y^{(i)}$ points and predicted $\hat{y}^{(i)}$ line), yielding the optimal linear regression model.
 
+## Practice Quiz: Regression Model & Cost Function
 
+### Question 1: Model Inputs / Features
+- **Question:** Which of the following are the inputs, or features, that are fed into the model and with which the model is expected to make a prediction?
+- **Correct Answer:** **$x$**
+- **Reasoning:** 
+  - $x$ represents the input feature(s) fed into function $f(x)$
+  - $w$ and $b$ are the internal model **parameters** (weights/bias).
+  - $m$ is the sample count, and $(x, y)$ is a full labeled training pair.
+
+---
+
+### Question 2: Cost Function Intuition ($J(w, b) \approx 0$)
+- **Question:** For linear regression, if you find parameters $w$ and $b$ so that $J(w, b)$ is very close to zero, what can you conclude?
+- **Correct Answer:** **The selected values of the parameters $w$ and $b$ cause the algorithm to fit the training set really well.**
+- **Reasoning:** 
+  - Cost $J(w,b)$ measures average squared prediction error across training data. 
+  - $J(w,b) \approx 0$ means predictions $\hat{y}^{(i)}$ almost perfectly match actual ground-truth targets $y^{(i)}$.
+
+![[Pasted image 20261013000528.png]]
