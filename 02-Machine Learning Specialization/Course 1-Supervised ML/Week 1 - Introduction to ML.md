@@ -381,14 +381,14 @@ $$\}$$
 
 ### Notation Breakdown
 - **$\alpha$ (Alpha):** **Learning rate**. Controls how large of a step is taken downhill during each update.
-- **$\frac{\partial}{\partial w} J(w, b)$:** **Derivative term**[cite: 44, 45]. Determines the slope and direction of the update[cite: 44, 45].
-- **$=$ (Assignment operator):** In programming code, `=` represents assigning a new value to a variable ($a = a + 1$), NOT mathematical truth equality ($a == c$)[cite: 44, 45].
+- **$\frac{\partial}{\partial w} J(w, b)$:** **Derivative term. Determines the slope and direction of the update.
+- **$=$ (Assignment operator):** In programming code, `=` represents assigning a new value to a variable ($a = a + 1$), NOT mathematical truth equality ($a == c$).
 
 ---
 
 ## 2. Simultaneous Update Requirement
 
-When implementing gradient descent in code, **both $w$ and $b$ MUST be updated simultaneously**[cite: 44, 45].
+When implementing gradient descent in code, **both $w$ and $b$ MUST be updated simultaneously**.
 
 ```python
 # CORRECT: Simultaneous Update
