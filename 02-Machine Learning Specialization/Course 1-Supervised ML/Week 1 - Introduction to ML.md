@@ -433,4 +433,5 @@ The derivative term $\frac{\partial}{\partial w} J(w, b)$ determines the directi
 - **Reasoning:** Since $\alpha > 0$ and the derivative is positive, subtracting their product from $w$ results in a smaller value for $w$, moving it closer to the bottom of the curve.
 
 ![[../../00-Attachments/Pasted image 20261017061424.png]]
+
 ![[../../00-Attachments/Pasted image 20261017061432.png]]
