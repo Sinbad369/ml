@@ -323,3 +323,45 @@ Moving closer to the **center of the concentric rings** on a contour plot direct
   - $J(w,b) \approx 0$ means predictions $\hat{y}^{(i)}$ almost perfectly match actual ground-truth targets $y^{(i)}$.
 
 ![[Pasted image 20261013000528.png]]
+
+
+# Gradient Descent — Concept & Intuition
+
+**Gradient Descent** is an optimization algorithm used to minimize any cost function $J(w, b)$ (or higher-dimensional functions $J(w_1, w_2, \dots, w_n, b)$)
+![[Pasted image 20261017052019.png]]
+
+---
+
+## 1. Core Algorithm Outline
+
+1. **Initialize Parameters:** Start with initial values for parameters (e.g., set $w = 0, b = 0$).
+2. **Iterative Steps:** Keep changing parameters $w$ and $b$ to decrease cost $J(w, b)$.
+3. **Convergence Goal:** Repeat until reaching or settling near a **minimum**.
+
+---
+
+## 2. Intuition: Hill Descent Analogy
+
+Imagine standing at a high point on a hilly landscape (a 3D cost surface):
+![[Pasted image 20261017052101.png]]
+
+- **Find Steepest Slope:** Look $360^\circ$ around your current location and determine which direction leads downhill most steeply.
+- **Take a Step:** Walk one small step in that direction.![[Pasted image 20261017052141.png]]
+- **Repeat:** From the new spot, re-evaluate the steepest downhill path and take another step.
+![[Pasted image 20261017052224.png]]
+- **Stop at Bottom:** Continue until reaching a valley floor where no further step goes downhill.
+![[Pasted image 20261017052255.png]]
+
+---
+
+## 3. Local Minima & Sensitivity to Initial Conditions
+
+General non-convex cost surfaces (unlike linear regression's single bowl shape) can contain multiple valleys
+
+- **Sensitivity to Starting Point:** Starting at slightly different initial parameter values $(w, b)$ can lead down a different path to an entirely different valley floor.
+- **Local Minima:** These valley bottoms are called **local minima. A non-convex function may have multiple local minima rather than one single global minimum.
+![[Pasted image 20261017052331.png]]
+![[Pasted image 20261017052351.png]]
+> [!note] Linear Regression Property
+> Squared error cost functions for linear regression form a **convex bowl** (always leading to one single global minimum). General non-linear or deep learning cost functions often have multiple **local minima].
+
