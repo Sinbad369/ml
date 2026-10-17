@@ -155,7 +155,7 @@ $$
 3. Select file $\rightarrow$ `Rename` (e.g., `lab_v1.ipynb`)
 4. Click **Help** (top right) $\rightarrow$ Click **Get latest version** $\rightarrow$ Click **Update Lab**
 # Linear Algebra — Week 1 Graded Quiz Solutions
-![[00-Attachments/Pasted image 20261009225330.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225330.png)
 ## 1. System of Sentences to Equations
 $$
 \begin{cases}
@@ -166,7 +166,7 @@ $$
 $$
 
 ---
-![[00-Attachments/Pasted image 20261009225347.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225347.png)
 ## 2. Matrix Singularity Representation
 Extracted $3 \times 3$ coefficient matrix $A$:
 $$
@@ -174,7 +174,7 @@ A = \begin{bmatrix} 3 & 2 & 1 \\ 1 & 1 & 2 \\ 5 & -6 & 3 \end{bmatrix}
 $$
 
 ---
-![[00-Attachments/Pasted image 20261009225401.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225401.png)
 ## 3. 3x3 Determinant Calculation
 $$
 A = \begin{bmatrix} 1 & 2 & 1 \\ 2 & 1 & 1 \\ -1 & 2 & 1 \end{bmatrix} \implies \det(A) = -2
@@ -182,7 +182,7 @@ $$
 - **Conclusion:** $\det(A) = -2 \neq 0 \implies$ **Non-singular**
 
 ---
-![[00-Attachments/Pasted image 20261009225420.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225420.png)
 ## 4. Row Linear Independence Test
 $$
 A = \begin{bmatrix} 1 & 2 & 3 \\ 3 & 2 & 1 \\ 2 & 2 & 1 \end{bmatrix} \implies \det(A) = 4 \neq 0
@@ -190,7 +190,7 @@ $$
 - **Conclusion:** **Linearly independent**
 
 ---
-![[00-Attachments/Pasted image 20261009225445.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225445.png)
 ## 5. Finding Linear Dependence Values
 $$
 \text{Row } 3 = \text{Row } 1 + \text{Row } 2 \implies [2+1, 1+2, 5+1] = [3, 3, 6]
@@ -198,7 +198,7 @@ $$
 - **Values:** $x = 3, y = 3, z = 6$
 
 ---
-![[00-Attachments/Pasted image 20261009225500.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225500.png)
 ## 6. Singular Matrix Determinant
 $$
 A = \begin{bmatrix} 1 & 2 & 3 \\ 0 & 2 & 2 \\ 1 & 4 & 5 \end{bmatrix} \implies \det(A) = 0
@@ -206,20 +206,20 @@ $$
 - **Conclusion:** $\det(A) = 0 \implies$ **Singular**
 
 ---
-![[00-Attachments/Pasted image 20261009225514.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225514.png)
 ## 7. Properties of Non-Singular Matrices
 - Rows are **linearly independent**.
 - System has **exactly one unique solution**.
 
 ---
-![[00-Attachments/Pasted image 20261009225531.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225531.png)
 ## 8. 2D Visual System Classifications
 1. **Zero Solutions:** Parallel lines (never touch).
 2. **One Solution:** Intersecting lines at 1 point.
 3. **Infinitely Many Solutions:** Overlapping lines.
 
 ---
-![[00-Attachments/Pasted image 20261009225547.png]]
+![](../../00-Attachments/Pasted%20image%2020261009225547.png)
 ## 9. 3D Plane System Classifications
 1. **Zero Solutions:** Parallel planes (no common point).
 2. **One Solution:** Planes intersect at a single point (marked with a dot).
