@@ -429,7 +429,7 @@ The derivative term $\frac{\partial}{\partial w} J(w, b)$ determines the directi
 ## 2. In-Video Question Summary
 
 - **Question:** When $\frac{\partial J(w,b)}{\partial w} > 0$, what happens to $w$ after one update step?
-- **Correct Answer:** **$w$ decreases.
+- **Correct Answer:** ** $w$ decreases.
 - **Reasoning:** Since $\alpha > 0$ and the derivative is positive, subtracting their product from $w$ results in a smaller value for $w$, moving it closer to the bottom of the curve.
 
 ![](../../00-Attachments/Pasted%20image%2020261017061424.png)
