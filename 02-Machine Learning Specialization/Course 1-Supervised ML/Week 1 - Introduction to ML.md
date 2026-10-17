@@ -276,18 +276,18 @@ Each point $(w, b)$ selected on a 2D contour plot directly defines a specific li
 - **Parameters:** $w = -0.15, b = 800 \implies f(x) = -0.15x + 800$
 - **Contour Position:** High up on the top-left outer ring (far from center).
 - **Fit Result:** Slope goes downhill while data trends uphill $\rightarrow$ **Extremely high cost $J$** (large vertical error bars).
-![[Pasted image 20261012235133.png]]
+![[00-Attachments/Pasted image 20261012235133.png]]
 
 ### Example 2: Horizontal Line (Zero Slope)
 - **Parameters:** $w = 0, b = 360 \implies f(x) = 360$
 - **Contour Position:** Located on an outer ring along the $w = 0$ axis.
 - **Fit Result:** Completely flat line $\rightarrow$ **High cost $J$** (fails to capture the relationship between house size and price).
-![[Pasted image 20261012235143.png]]
+![[00-Attachments/Pasted image 20261012235143.png]]
 ### Example 3: Parallel Line Shift
 - **Parameters:** $w = -0.15, b = 500 \implies f(x) = -0.15x + 500$
 - **Contour Position:** Shifted downwards on the outer rings relative to Example 1.
 - **Fit Result:** Same wrong slope as Example 1, but shifted lower $\rightarrow$ **Still high cost $J$**.
-![[Pasted image 20261012235200.png]]
+![[00-Attachments/Pasted image 20261012235200.png]]
 ---
 
 ## 2. Optimal Fit (Point at the Minimum Center)
@@ -296,9 +296,9 @@ Each point $(w, b)$ selected on a 2D contour plot directly defines a specific li
 - **Parameters:** $w = 0.13, b = 71 \implies f(x) = 0.13x + 71$
 - **Contour Position:** Sits at the **exact center** of the innermost concentric oval.
 - **Fit Result:** The line passes directly through the middle of the data points, minimizing the sum of squared errors $\rightarrow$ **Global Minimum Cost $\min J(w,b)$**.
-![[Pasted image 20261012235210.png]]
+![[00-Attachments/Pasted image 20261012235210.png]]
 ---
-![[Pasted image 20261012235220.png]]
+![[00-Attachments/Pasted image 20261012235220.png]]
 ## Key Takeaway
 
 Moving closer to the **center of the concentric rings** on a contour plot directly reduces the vertical prediction errors (distances between actual $y^{(i)}$ points and predicted $\hat{y}^{(i)}$ line), yielding the optimal linear regression model.
@@ -322,13 +322,13 @@ Moving closer to the **center of the concentric rings** on a contour plot direct
   - Cost $J(w,b)$ measures average squared prediction error across training data. 
   - $J(w,b) \approx 0$ means predictions $\hat{y}^{(i)}$ almost perfectly match actual ground-truth targets $y^{(i)}$.
 
-![[Pasted image 20261013000528.png]]
+![[00-Attachments/Pasted image 20261013000528.png]]
 
 
 # Gradient Descent — Concept & Intuition
 
 **Gradient Descent** is an optimization algorithm used to minimize any cost function $J(w, b)$ (or higher-dimensional functions $J(w_1, w_2, \dots, w_n, b)$)
-![[Pasted image 20261017052019.png]]
+![[00-Attachments/Pasted image 20261017052019.png]]
 
 ---
 
@@ -343,14 +343,14 @@ Moving closer to the **center of the concentric rings** on a contour plot direct
 ## 2. Intuition: Hill Descent Analogy
 
 Imagine standing at a high point on a hilly landscape (a 3D cost surface):
-![[Pasted image 20261017052101.png]]
+![[00-Attachments/Pasted image 20261017052101.png]]
 
 - **Find Steepest Slope:** Look $360^\circ$ around your current location and determine which direction leads downhill most steeply.
-- **Take a Step:** Walk one small step in that direction.![[Pasted image 20261017052141.png]]
+- **Take a Step:** Walk one small step in that direction.![[00-Attachments/Pasted image 20261017052141.png]]
 - **Repeat:** From the new spot, re-evaluate the steepest downhill path and take another step.
-![[Pasted image 20261017052224.png]]
+![[00-Attachments/Pasted image 20261017052224.png]]
 - **Stop at Bottom:** Continue until reaching a valley floor where no further step goes downhill.
-![[Pasted image 20261017052255.png]]
+![[00-Attachments/Pasted image 20261017052255.png]]
 
 ---
 
@@ -360,8 +360,8 @@ General non-convex cost surfaces (unlike linear regression's single bowl shape) 
 
 - **Sensitivity to Starting Point:** Starting at slightly different initial parameter values $(w, b)$ can lead down a different path to an entirely different valley floor.
 - **Local Minima:** These valley bottoms are called **local minima. A non-convex function may have multiple local minima rather than one single global minimum.
-![[Pasted image 20261017052331.png]]
-![[Pasted image 20261017052351.png]]
+![[00-Attachments/Pasted image 20261017052331.png]]
+![[00-Attachments/Pasted image 20261017052351.png]]
 > [!note] Linear Regression Property
 > Squared error cost functions for linear regression form a **convex bowl** (always leading to one single global minimum). General non-linear or deep learning cost functions often have multiple **local minima].
 
@@ -398,4 +398,4 @@ tmp_b = b - alpha * d_J_db
 w = tmp_w  # Update w after computing both terms
 b = tmp_b  # Update b after computing both terms
 ```
-![[Pasted image 20261017054043.png]]
+![[00-Attachments/Pasted image 20261017054043.png]]
