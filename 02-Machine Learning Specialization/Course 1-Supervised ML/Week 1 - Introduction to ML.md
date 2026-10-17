@@ -403,3 +403,34 @@ b = tmp_b  # Update b after computing both terms
 
 ![[00-Attachments/Pasted image 20261017054043.png]]
 
+
+# Gradient Descent Intuition — Slope & Derivatives
+
+The derivative term $\frac{\partial}{\partial w} J(w, b)$ determines the direction in which parameter $w$ moves (increases or decreases) to reach the minimum cost.
+
+---
+
+## 1. Derivative Cases & Parameter Updates
+
+### Case 1: Positive Slope / Derivative ($> 0$)
+- **Tangent Line:** Slopes **upward** to the right.
+- **Update Formula:** 
+  $$w = w - \alpha \cdot (\text{positive number})$$
+- **Result:** **$w$ decreases** (moves left toward the minimum).
+
+### Case 2: Negative Slope / Derivative ($< 0$)
+- **Tangent Line:** Slopes **downward** to the right.
+- **Update Formula:** 
+  $$w = w - \alpha \cdot (\text{negative number}) = w + \alpha \cdot (\text{positive number})$$
+- **Result:** **$w$ increases** (moves right toward the minimum)[.
+
+---
+
+## 2. In-Video Question Summary
+
+- **Question:** When $\frac{\partial J(w,b)}{\partial w} > 0$, what happens to $w$ after one update step?
+- **Correct Answer:** **$w$ decreases.
+- **Reasoning:** Since $\alpha > 0$ and the derivative is positive, subtracting their product from $w$ results in a smaller value for $w$, moving it closer to the bottom of the curve.
+
+![[../../00-Attachments/Pasted image 20261017061424.png]]
+![[../../00-Attachments/Pasted image 20261017061432.png]]
