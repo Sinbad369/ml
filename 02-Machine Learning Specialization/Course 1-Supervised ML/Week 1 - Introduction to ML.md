@@ -398,4 +398,6 @@ tmp_b = b - alpha * d_J_db
 w = tmp_w  # Update w after computing both terms
 b = tmp_b  # Update b after computing both terms
 ```
+
+
 ![[00-Attachments/Pasted image 20261017054043.png]]
