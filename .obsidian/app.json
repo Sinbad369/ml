@@ -2,5 +2,6 @@
   "newFileLocation": "folder",
   "newFileFolderPath": "00-Attachments",
   "alwaysUpdateLinks": true,
-  "attachmentFolderPath": "00-Attachments"
+  "attachmentFolderPath": "00-Attachments",
+  "newLinkFormat": "relative"
 }

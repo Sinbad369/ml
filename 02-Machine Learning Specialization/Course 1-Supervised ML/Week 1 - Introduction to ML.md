@@ -365,3 +365,37 @@ General non-convex cost surfaces (unlike linear regression's single bowl shape) 
 > [!note] Linear Regression Property
 > Squared error cost functions for linear regression form a **convex bowl** (always leading to one single global minimum). General non-linear or deep learning cost functions often have multiple **local minima].
 
+# Gradient Descent Algorithm & Update Rules
+
+## 1. Mathematical Update Equations
+
+To minimize cost $J(w, b)$, parameters $w$ and $b$ are updated repeatedly in small steps until convergence:
+
+$$\text{Repeat until convergence: } \{$$
+
+$$w = w - \alpha \frac{\partial}{\partial w} J(w, b)$$
+
+$$b = b - \alpha \frac{\partial}{\partial b} J(w, b)$$
+
+$$\}$$
+
+### Notation Breakdown
+- **$\alpha$ (Alpha):** **Learning rate**. Controls how large of a step is taken downhill during each update.
+- **$\frac{\partial}{\partial w} J(w, b)$:** **Derivative term**[cite: 44, 45]. Determines the slope and direction of the update[cite: 44, 45].
+- **$=$ (Assignment operator):** In programming code, `=` represents assigning a new value to a variable ($a = a + 1$), NOT mathematical truth equality ($a == c$)[cite: 44, 45].
+
+---
+
+## 2. Simultaneous Update Requirement
+
+When implementing gradient descent in code, **both $w$ and $b$ MUST be updated simultaneously**[cite: 44, 45].
+
+```python
+# CORRECT: Simultaneous Update
+tmp_w = w - alpha * d_J_dw
+tmp_b = b - alpha * d_J_db
+
+w = tmp_w  # Update w after computing both terms
+b = tmp_b  # Update b after computing both terms
+```
+![[Pasted image 20261017054043.png]]
