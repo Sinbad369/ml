@@ -3,5 +3,6 @@
   "newFileFolderPath": "00-Attachments",
   "alwaysUpdateLinks": true,
   "attachmentFolderPath": "00-Attachments",
-  "newLinkFormat": "relative"
+  "newLinkFormat": "relative",
+  "useMarkdownLinks": true
 }
