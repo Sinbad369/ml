@@ -295,3 +295,7 @@ The learning rate \(\alpha\) dictates the size of the steps taken during gradien
 > *   If \(\alpha\) is too small, convergence is slow.
 > *   If \(\alpha\) is too large, gradient descent may overshoot the minimum and **diverge** (fail to converge entirely). 
 > *   Finding a good learning rate is a tuning process, not just a matter of scaling it up linearly.
+
+![](../../00-Attachments/Pasted%20image%2020261024203043.png)
+
+![](../../00-Attachments/Pasted%20image%2020261024203101.png)
