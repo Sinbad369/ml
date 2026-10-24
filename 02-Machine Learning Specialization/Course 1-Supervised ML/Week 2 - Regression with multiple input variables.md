@@ -819,3 +819,67 @@ To code this, we need a loop to iterate through every single training example, c
 5.  **`total_cost += cost`**: Acts as the summation symbol ($\Sigma$). It keeps a running tally.
 6.  **`total_cost = total_cost / (2 * m)`**: We do this *outside* the loop. If we did it inside the loop, we would be dividing the sum repeatedly, which is mathematically incorrect.
 
+# Gradient Computation Implementation (Gradient Descent Lab - Exercise 2)
+
+## Overview
+This note documents how to implement the gradient calculation for linear regression. Gradient descent relies on these partial derivatives to know which direction (and how much) to update the parameters $w$ and $b$ to minimize the cost function.
+
+---
+
+## 1. The Mathematical Formulas
+
+To find the gradient, we need the partial derivatives of the Cost Function $J(w,b)$ with respect to both $w$ and $b$.
+
+**For a single training example ($i$):**
+*   Gradient w.r.t. $b$: 
+    $$ \frac{\partial J(w,b)}{\partial b}^{(i)} = (f_{w,b}(x^{(i)}) - y^{(i)}) $$
+*   Gradient w.r.t. $w$: 
+    $$ \frac{\partial J(w,b)}{\partial w}^{(i)} = (f_{w,b}(x^{(i)}) - y^{(i)})x^{(i)} $$
+
+**Total Gradient (Averaged over all $m$ examples):**
+
+$$ \frac{\partial J(w,b)}{\partial b} = \frac{1}{m} \sum_{i=0}^{m-1} \frac{\partial J(w,b)}{\partial b}^{(i)} $$
+
+$$ \frac{\partial J(w,b)}{\partial w} = \frac{1}{m} \sum_{i=0}^{m-1} \frac{\partial J(w,b)}{\partial w}^{(i)} $$
+
+*(Note: Because the cost function has a $\frac{1}{2m}$ in front of the squared error, the derivative cancels out the $2$, leaving just $\frac{1}{m}$.)*
+
+## 2. The Python Implementation
+
+We use a `for` loop to iterate through the examples, accumulate the sum of the gradients, and then divide by $m$ at the end.
+
+> [!success] The `compute_gradient` Function
+> ```python
+> def compute_gradient(x, y, w, b): 
+>     m = x.shape[0]
+>     
+>     dj_dw = 0
+>     dj_db = 0
+>     
+>     for i in range(m):
+>         # 1. Compute prediction
+>         f_wb = w * x[i] + b
+>         
+>         # 2. Compute error (prediction - actual)
+>         error = f_wb - y[i]
+>         
+>         # 3. Accumulate gradients
+>         dj_dw += error * x[i]
+>         dj_db += error
+>         
+>     # 4. Average the gradients
+>     dj_dw = dj_dw / m
+>     dj_db = dj_db / m
+>         
+>     return dj_dw, dj_db
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`error = f_wb - y[i]`**: This is the core of the calculation. It represents how far off the model's prediction is from the actual label.
+2.  **`dj_db += error`**: We add the raw error to the bias gradient sum. If the prediction is higher than actual, the error is positive.
+3.  **`dj_dw += error * x[i]`**: We multiply the error by the feature value `x[i]`. This makes sense intuitively: if `x[i]` is large, the weight `w` played a bigger role in the error, so it needs a larger update.
+4.  **`dj_dw = dj_dw / m`**: Outside the loop, we divide by the number of examples to get the *average* gradient across the whole dataset.
+
