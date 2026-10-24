@@ -702,3 +702,57 @@ In the real world, you don't usually write loops or manually create `x**2` and `
 > predictions = model.predict(X_new)
 > ```
 
+
+# Week 2: Regression Concepts (Quiz Review)
+
+## 1. Feature Scaling Methods
+Feature scaling is used to bring all features into a similar range (typically around $-1$ to $1$).
+
+*   **Mean Normalization** is a valid scaling step.
+    *   **Formula:** $x = \frac{x - \mu}{x_{max} - x_{min}}$
+    *   **Action:** You **subtract** the mean (average) from each value, and then divide by the range (max - min). 
+    *   *(Note: Adding the mean instead of subtracting is incorrect).*
+
+**When is it helpful?**
+Feature scaling is particularly helpful when **one feature is much larger (or smaller) than another feature** (e.g., Size in feet² vs. Number of bedrooms). 
+*   If all features already range from $0$ to $1$, scaling is not strictly necessary.
+
+---
+
+## 2. Identifying Learning Rate (\(\alpha\)) Issues
+
+By plotting the learning curve (Cost \(J\) vs. Number of iterations), we can diagnose the learning rate:
+
+*   **Healthy (\(\alpha\) is good):** The cost curve smoothly decreases and eventually flattens out (Case A).
+*   **Diverging (\(\alpha\) is too large):** The cost curve increases over time. The algorithm is overshooting the minimum (Case B).
+
+> [!tip] Rule of thumb
+> If the learning curve goes UP, the learning rate is too large. Try a smaller \(\alpha\).
+
+---
+
+## 3. Feature Engineering
+Feature Engineering is the process of using intuition to design new features by transforming or combining original features.
+
+**Example:** Predicting grocery store revenue.
+*   Given features: `items_sold`, `price_per_item`
+*   **Useful Engineered Feature:** `items_sold * price_per_item` (This calculates the total revenue per product, which is highly predictive of overall store revenue).
+*   *(Note: Dividing items by price is generally not as useful as multiplying them).*
+
+---
+
+## 4. Polynomial Regression Characteristics
+
+> [!info] True or False?
+> "With polynomial regression, the predicted values \(f_{w,b}(x)\) do not necessarily have to be a straight line (or linear) function of the input feature \(x\)."
+> 
+> **Answer: TRUE.**
+> 
+> *Reasoning:* While the *parameters* (\(w, b\)) remain linear, the *features* can be non-linear (e.g., \(x^2\), \(x^3\), \(\sqrt{x}\)). This allows the model to fit complex, curved data rather than just straight lines.
+
+
+![](../../00-Attachments/Pasted%20image%2020261025010229.png)
+
+![](../../00-Attachments/Pasted%20image%2020261025010254.png)
+
+![](../../00-Attachments/Pasted%20image%2020261025010312.png)
