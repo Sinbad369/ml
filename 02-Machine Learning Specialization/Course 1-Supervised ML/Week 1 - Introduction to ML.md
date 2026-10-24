@@ -549,3 +549,5 @@ As gradient descent runs through multiple iterations:
   $$\frac{1}{m}\sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)$$
 - **Comparison:** While some gradient descent variants look at small subsets (mini-batches) of data per step, "Batch" gradient descent computes exact derivatives using the entire dataset at once.
 ![](../../00-Attachments/Pasted%20image%2020261024172636.png)
+
+
