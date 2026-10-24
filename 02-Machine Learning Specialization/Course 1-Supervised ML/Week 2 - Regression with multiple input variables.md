@@ -758,3 +758,64 @@ Feature Engineering is the process of using intuition to design new features by 
 ![](../../00-Attachments/Pasted%20image%2020261025010312.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261025010327.png)
+
+
+# Cost Function Implementation (Gradient Descent Lab - Exercise 1)
+
+## Overview
+This note documents how to implement the Squared Error Cost Function $J(w,b)$ in Python using NumPy arrays. This is the foundational function used to evaluate how well our linear regression model is performing.
+
+---
+
+## 1. The Mathematical Formula
+The goal is to compute the cost function:
+$$J(w,b) = \frac{1}{2m} \sum_{i=0}^{m-1} (f_{w,b}(x^{(i)}) - y^{(i)})^2$$
+
+**Where:**
+*   $m$ = number of training examples.
+*   $f_{w,b}(x^{(i)})$ = the model's prediction for example $i$ (which is $w \cdot x^{(i)} + b$).
+*   $y^{(i)}$ = the actual true label for example $i$.
+*   The $\frac{1}{2m}$ ensures the derivative (used later in gradient descent) cancels out the $2$ from the squared exponent.
+
+---
+
+## 2. The Python Implementation
+To code this, we need a loop to iterate through every single training example, calculate its individual squared error, sum them all up, and finally average them.
+
+> [!success] The `compute_cost` Function
+> ```python
+> def compute_cost(x, y, w, b): 
+>     # m is the number of training examples
+>     m = x.shape[0] 
+>     
+>     total_cost = 0
+>     
+>     # 1. Iterate over all training examples
+>     for i in range(m):
+>         
+>         # 2. Calculate the prediction: f_wb = w*x + b
+>         f_wb = w * x[i] + b
+>         
+>         # 3. Calculate the squared error for this example
+>         cost = (f_wb - y[i])**2
+>         
+>         # 4. Add it to the running total
+>         total_cost += cost
+>         
+>     # 5. Divide by 2m (outside the loop)
+>     total_cost = total_cost / (2 * m)
+>     
+>     return total_cost
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`m = x.shape[0]`**: Grabs the length of the array `x` to find out how many data points we have.
+2.  **`for i in range(m):`**: Loops from `0` to `m-1`, allowing us to access `x[0]`, `x[1]`, etc.
+3.  **`f_wb = w * x[i] + b`**: Calculates the prediction for the current house/city.
+4.  **`cost = (f_wb - y[i])**2`**: Finds the difference between the prediction and the actual value, and squares it to remove negative signs.
+5.  **`total_cost += cost`**: Acts as the summation symbol ($\Sigma$). It keeps a running tally.
+6.  **`total_cost = total_cost / (2 * m)`**: We do this *outside* the loop. If we did it inside the loop, we would be dividing the sum repeatedly, which is mathematically incorrect.
+
