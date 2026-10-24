@@ -570,3 +570,50 @@ When trying to find a good learning rate, test a range of values by multiplying 
 ![](../../00-Attachments/Pasted%20image%2020261024232941.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261024232946.png)
+
+# Feature Engineering
+
+## Overview
+Sometimes the original features you are given aren't the most useful for predicting the target. **Feature Engineering** is the process of using your intuition about the problem to design *new* features by transforming or combining the original ones. 
+
+This often allows the model to fit the data much better than just using raw inputs.
+
+---
+
+## 1. The Problem: Raw Features Aren't Always Enough
+Imagine you are predicting house prices. You are given two raw features:
+*   $x_1$: **Frontage** (the width of the lot)
+*   $x_2$: **Depth** (how far back the lot goes)
+
+A basic linear model would look like this:
+$$f_{w,b}(x) = w_1x_1 + w_2x_2 + b$$
+
+However, human intuition tells us that the *actual value* of a house might be highly dependent on the total land area, not just the width and depth separately.
+
+---
+
+## 2. Creating a New Feature
+We know from basic geometry that:
+$$Area = Frontage \times Depth$$
+
+So, we can **create a new feature** $x_3$:
+*   $x_3 = x_1 \times x_2$ (New feature: Area)
+
+Now, we can update our model to use this new, more informative feature:
+$$f_{w,b}(x) = w_1x_1 + w_2x_2 + w_3x_3 + b$$
+
+The model can now learn a weight ($w_3$) specifically for the area of the house.
+
+---
+
+## 3. Key Takeaways
+> [!tip] The Core Concept
+> Feature engineering is all about **domain knowledge**. You use what you know about the real-world problem to create features that make the machine learning algorithm's job easier.
+
+*   You are not limited to just multiplying features. You might use addition, division, squares, or even more complex transformations based on your intuition.
+*   It allows linear models to capture complex, non-linear relationships (like $x_1 \times x_2$) without changing the underlying algorithm.
+
+*(Note: In later courses, you will learn about Neural Networks, which can sometimes learn these complex features automatically. But for linear regression, manual feature engineering is a very powerful tool.)*
+
+![](../../00-Attachments/Pasted%20image%2020261025003931.png)
+
