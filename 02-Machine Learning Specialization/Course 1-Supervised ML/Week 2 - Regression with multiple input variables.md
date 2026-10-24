@@ -44,3 +44,20 @@ Where $\vec{w} \cdot \vec{x}$ represents the **dot product** ($w_1 x_1 + w_2 x_2
 ![](../../00-Attachments/Pasted%20image%2020261024182901.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261024182917.png)
+
+# Vectorization
+
+Vectorization uses linear algebra library functions (like NumPy) to run mathematical operations in parallel on hardware (CPU/GPU) rather than sequentially through explicit Python loops.
+
+---
+
+## 1. Model Prediction: Vectorized vs. Non-Vectorized
+
+To evaluate $f_{\vec{w},b}(\vec{x}) = \vec{w} \cdot \vec{x} + b$:
+
+### Non-Vectorized (Loop Approach)
+```python
+f = 0
+for j in range(n):
+    f = f + w[j] * x[j]
+f = f + b
