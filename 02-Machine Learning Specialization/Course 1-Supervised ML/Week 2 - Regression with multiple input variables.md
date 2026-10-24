@@ -756,3 +756,5 @@ Feature Engineering is the process of using intuition to design new features by 
 ![](../../00-Attachments/Pasted%20image%2020261025010254.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261025010312.png)
+
+![](../../00-Attachments/Pasted%20image%2020261025010327.png)
