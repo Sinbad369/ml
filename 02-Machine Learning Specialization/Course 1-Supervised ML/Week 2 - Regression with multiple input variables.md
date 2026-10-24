@@ -299,3 +299,57 @@ The learning rate \(\alpha\) dictates the size of the steps taken during gradien
 ![](../../00-Attachments/Pasted%20image%2020261024203043.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261024203101.png)
+
+# Feature Scaling (Part 1)
+
+## Overview
+When we have multiple features, they can have vastly different ranges of values. This discrepancy can cause issues for Gradient Descent. This note covers why feature scaling is necessary and how it improves the shape of the cost function contour plot.
+
+---
+
+## 1. The Problem: Feature Size vs. Parameter Size
+
+Imagine predicting house prices with two features:
+*   **$x_1$: Size in feet²** (Range: 300 - 2,000) $\rightarrow$ **Large** values
+*   **$x_2$: # Bedrooms** (Range: 0 - 5) $\rightarrow$ **Small** values
+
+**Example:** A house with $x_1 = 2000$, $x_2 = 5$, actual price = $500k.
+
+Let's look at the model: $\hat{price} = w_1x_1 + w_2x_2 + b$
+
+If we choose arbitrary parameters, look at how the magnitude of the features dictates the parameters:
+*   **Scenario A:** $w_1 = 50$, $w_2 = 0.1$, $b = 50$ 
+    *   The $w_1$ term contributes $100,000$. The model outputs a wildly inaccurate prediction.
+*   **Scenario B:** $w_1 = 0.1$, $w_2 = 50$, $b = 50$
+    *   Because $x_1$ is so large, $w_1$ must be **very small**.
+    *   Because $x_2$ is so small, $w_2$ must be **relatively large**.
+    *   The prediction is $500k (reasonable).
+
+**Takeaway:** When features have different scales, their corresponding parameters will also have vastly different scales.
+![](../../00-Attachments/Pasted%20image%2020261024224403.png)
+---
+
+## 2. Visualizing the Cost Function
+
+Because the parameters ($w_1$ and $w_2$) have different scales, the contour plot of the cost function $J(\vec{w}, b)$ becomes heavily skewed.
+
+*   **Features Scatterplot:** The data looks like a flat oval (because $x_1$ goes up to 2000, while $x_2$ only goes to 5).
+*   **Parameter Contour Plot:** The contours form highly elongated, skinny ellipses. The graph is stretched out because the axis for $w_1$ is very small (e.g., 0 to 1), while the axis for $w_2$ is very large (e.g., 10 to 100).
+![](../../00-Attachments/Pasted%20image%2020261024224409.png)
+---
+
+## 3. Impact on Gradient Descent
+
+> [!warning] The Problem with Unscaled Data
+> If you run Gradient Descent on unscaled data, the algorithm will likely "bounce" back and forth. 
+> 
+> Because the contour plot is a stretched ellipse, the gradient descent path (red arrows) will zigzag heavily and take a very long time to find the global minimum.
+
+> [!success] The Solution: Feature Scaling
+> If we rescale the features so they both have a similar range (e.g., both between 0 and 1), the contour plot becomes perfectly circular.
+> 
+> This allows Gradient Descent to take a direct, straight path to the center (the minimum), converging much faster and more reliably.
+
+![](../../00-Attachments/Pasted%20image%2020261024224421.png)
+
+**Next step:** *How* do we actually scale the features? (Covered in Feature Scaling Part 2 - typically Mean Normalization or Z-score normalization).
