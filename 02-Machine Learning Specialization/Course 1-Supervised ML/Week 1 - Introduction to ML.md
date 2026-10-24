@@ -551,3 +551,39 @@ As gradient descent runs through multiple iterations:
 ![](../../00-Attachments/Pasted%20image%2020261024172636.png)
 
 
+# Practice Quiz: Gradient Descent Concepts
+
+Key takeaway questions and answers from the Week 1 Gradient Descent quiz.
+
+---
+
+## Question 1: Effect of Negative Gradient on Parameter $w$
+
+**Question:**  
+When $\frac{\partial J(w,b)}{\partial w}$ is a **negative number** ($< 0$), what happens to $w$ after one update step?
+
+- [ ] $w$ decreases
+- [ ] $w$ stays the same
+- [ ] It is not possible to tell if $w$ will increase or decrease
+- [x] **$w$ increases**
+
+> [!note] Mathematical Explanation
+> The gradient descent update rule is:
+> $$w = w - \alpha \frac{\partial J(w,b)}{\partial w}$$
+> Since the learning rate $\alpha > 0$ and the derivative is negative ($< 0$), subtracting a negative number is equivalent to adding a positive number:
+> $$w_{\text{new}} = w - \alpha \cdot (\text{negative number}) = w + \alpha \cdot (\text{positive number})$$
+> Therefore, **$w$ increases** (moves to the right toward the minimum).
+
+---
+
+## Question 2: Parameter Update Step for $b$ in Linear Regression
+
+**Question:**  
+For linear regression, what is the update step for parameter $b$?
+
+- [ ] $b = b - \alpha \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right) x^{(i)}$
+- [x] **$b = b - \alpha \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)$**
+
+> [!important] $w$ vs $b$ Update Distinctions
+> - **Parameter $w$:** Multiplies the error term by the input feature $x^{(i)}$ because $w$ controls the slope.
+> - **Parameter $b$:** Does **NOT** include $x^{(i)}$ because $b$ is the intercept term.
