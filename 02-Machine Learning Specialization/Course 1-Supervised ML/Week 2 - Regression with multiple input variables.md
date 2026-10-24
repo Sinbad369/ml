@@ -447,3 +447,61 @@ However, it doesn't have to be perfect. Here is a guide from the course:
 ![](../../00-Attachments/Pasted%20image%2020261024230534.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261024230540.png)
+
+# Checking Gradient Descent for Convergence
+
+## Overview
+When running gradient descent, it is crucial to monitor the **learning curve** (the plot of the cost function $J$ over iterations) to ensure the algorithm is actually working and to know when to stop training.
+
+---
+
+## 1. The Learning Curve
+
+The objective of gradient descent is to minimize the cost function: 
+$$ \min_{\vec{w},b} J(\vec{w},b) $$
+
+**How to plot it:**
+*   **X-axis:** Number of iterations (or epochs).
+*   **Y-axis:** The value of the cost function $J(\vec{w},b)$.
+
+> [!success] What a healthy curve looks like
+> $J(\vec{w},b)$ **should decrease after every single iteration**. 
+> *   At iteration 100, $J$ is lower than at iteration 0.
+> *   At iteration 200, $J$ is lower than at iteration 100.
+> *   Eventually, the curve will flatten out. This is when the algorithm has **likely converged** (e.g., around 400 iterations in the example). At this point, the parameters $\vec{w}, b$ are close to the global minimum.
+
+> [!warning] What an unhealthy curve looks like
+> If $J(\vec{w},b)$ **increases** after an iteration, or if it goes up and down repeatedly, it usually means one of two things:
+> 1.  Your **learning rate ($\alpha$) is too large** (the algorithm is overshooting the minimum).
+> 2.  There is a **bug in your code** (e.g., a typo in the derivative calculation).
+
+---
+
+## 2. How Many Iterations Do You Need?
+
+There is no fixed number of iterations that works for every model. 
+*   The number of iterations needed varies wildly depending on the dataset and the problem.
+*   It could be **30** iterations, **1,000**, **100,000**, or even more.
+
+Because of this, plotting the learning curve is the best way to visually find the convergence point. However, visual inspection can be tedious for automated systems.
+
+---
+
+## 3. Automatic Convergence Test
+
+To automate the stopping process, we can use a mathematical threshold to declare convergence.
+
+**The Rule:**
+1.  Choose a small number, **$\epsilon$ (epsilon)**. 
+    *   *A common choice is $\epsilon = 10^{-3}$ (or $0.001$).*
+2.  If the cost function $J(\vec{w},b)$ **decreases by $\le \epsilon$** in one iteration, declare convergence.
+3.  Stop training and output the current parameters $\vec{w}, b$.
+
+> [!example] How it works in practice
+> If the cost at iteration 400 is $0.5000$ and the cost at iteration 401 is $0.4995$, the difference is $0.0005$. 
+> Since $0.0005 \le 0.001$, the algorithm automatically stops and declares convergence.
+
+> [!tip] Debugging Tip
+> If you aren't sure if gradient descent is working, always plot $J$ vs. iterations. Look for a smooth downward trend. 
+
+![](../../00-Attachments/Pasted%20image%2020261024231300.png)
