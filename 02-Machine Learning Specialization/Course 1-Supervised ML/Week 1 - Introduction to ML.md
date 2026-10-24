@@ -470,3 +470,52 @@ Gradient descent can reach a local minimum using a **fixed learning rate $\alpha
 2. Because the step length is $\alpha \cdot \frac{d}{dw}J(w)$, smaller derivatives produce **progressively smaller update steps**.
 3. **Conclusion:** The algorithm naturally slows down and settles smoothly into the minimum.
 ![](../../00-Attachments/Pasted%20image%2020261024170512.png)
+
+# Gradient Descent for Linear Regression
+
+By substituting the explicit partial derivatives of the mean squared error cost function into the gradient descent algorithm, we get the exact update formulas used to train a linear regression model.
+![](../../00-Attachments/Pasted%20image%2020261024171916.png)
+
+---
+
+## 1. Derivation of Partial Derivatives (Optional Calculus Details)
+
+Given the cost function:
+$$J(w,b) = \frac{1}{2m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)^2 = \frac{1}{2m} \sum_{i=1}^{m} \left(wx^{(i)} + b - y^{(i)}\right)^2$$
+
+### Derivative with respect to $w$:
+$$\frac{\partial}{\partial w} J(w,b) = \frac{\partial}{\partial w} \frac{1}{2m} \sum_{i=1}^{m} \left(wx^{(i)} + b - y^{(i)}\right)^2$$
+
+Applying the chain rule brings down the exponent $2$, cancelling with the $\frac{1}{2}$ denominator:
+$$\frac{\partial}{\partial w} J(w,b) = \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right) x^{(i)}$$
+
+### Derivative with respect to $b$:
+$$\frac{\partial}{\partial b} J(w,b) = \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)$$
+![](../../00-Attachments/Pasted%20image%2020261024171930.png)
+---
+
+## 2. Complete Linear Regression Gradient Descent Algorithm
+
+$$\text{Repeat until convergence: } \{$$
+
+$$w = w - \alpha \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right) x^{(i)}$$
+
+$$b = b - \alpha \frac{1}{m} \sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)$$
+
+$$\}$$
+
+> [!important] Simultaneous Updates
+> Both $w$ and $b$ must be updated **simultaneously** in each iteration using temporary variables (`tmp_w`, `tmp_b`) before overwriting $w$ and $b$.
+
+![](../../00-Attachments/Pasted%20image%2020261024171953.png)
+
+## 3. Convexity & "Batch" Gradient Descent
+
+### Convex Function (Single Global Minimum)
+- **General Functions:** Non-linear models can have multiple local minima depending on initial values.
+- **Linear Regression:** The squared error cost function always produces a **convex function** (soup-bowl shape).
+- **Key Guarantee:** Linear regression has **no local minima**—only a single **global minimum**. As long as learning rate $\alpha$ is chosen properly, gradient descent is guaranteed to converge to the global minimum.
+![](../../00-Attachments/Pasted%20image%2020261024172004.png)
+### "Batch" Gradient Descent Definition
+- This algorithm is called **"Batch" Gradient Descent** because each step evaluates **all $m$ training examples** in the summation $\sum_{i=1}^{m}$.
+![](../../00-Attachments/Pasted%20image%2020261024172012.png)
