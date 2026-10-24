@@ -519,3 +519,33 @@ $$\}$$
 ### "Batch" Gradient Descent Definition
 - This algorithm is called **"Batch" Gradient Descent** because each step evaluates **all $m$ training examples** in the summation $\sum_{i=1}^{m}$.
 ![](../../00-Attachments/Pasted%20image%2020261024172012.png)
+
+# Running Gradient Descent in Action
+
+Visualizing how gradient descent updates parameters $w$ and $b$ step-by-step to fit linear regression onto training data.
+
+---
+
+## 1. Visualizing Convergence Across Three Plots
+
+As gradient descent runs through multiple iterations:
+
+1. **Model Fit Line ($f_{w,b}(x)$ vs. Data):** 
+   - Starts as a poor-fitting line (e.g., negative slope or incorrect intercept).
+   - Rotates and shifts with each update until it smoothly intersects the center of the training data points.
+2. **Contour Plot ($J(w, b)$ Surface):**
+   - Each step draws a trajectory moving inward across concentric elliptical contour rings.
+   - Cost drops rapidly at first (e.g., $77,237 \to 45,401 \to 29,109 \dots$), then decelerates as it reaches the center (minimum cost $\approx 2,311$).
+3. **3D Surface Plot:**
+   - Trajectory steps downward from a high point on the convex bowl directly into the global minimum valley.
+![](../../00-Attachments/Pasted%20image%2020261024172627.png)
+
+---
+
+## 2. "Batch" Gradient Descent Definition
+
+- **Batch Gradient Descent:** Refers to gradient descent algorithms where **every single training example** ($i = 1 \dots m$) is processed in the summation term during each step.
+- **Formula Requirement:**
+  $$\frac{1}{m}\sum_{i=1}^{m} \left(f_{w,b}(x^{(i)}) - y^{(i)}\right)$$
+- **Comparison:** While some gradient descent variants look at small subsets (mini-batches) of data per step, "Batch" gradient descent computes exact derivatives using the entire dataset at once.
+![](../../00-Attachments/Pasted%20image%2020261024172636.png)
