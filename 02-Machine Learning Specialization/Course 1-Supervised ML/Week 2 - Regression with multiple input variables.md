@@ -353,3 +353,97 @@ Because the parameters ($w_1$ and $w_2$) have different scales, the contour plot
 ![](../../00-Attachments/Pasted%20image%2020261024224421.png)
 
 **Next step:** *How* do we actually scale the features? (Covered in Feature Scaling Part 2 - typically Mean Normalization or Z-score normalization).
+
+
+# Feature Scaling Methods
+
+## Overview
+Feature scaling is the process of transforming features so they all fall within a similar range (typically around $-1$ to $1$). This creates a more spherical contour plot for the cost function, allowing Gradient Descent to converge much faster.
+
+There are three main methods to achieve this.
+
+---
+
+## 1. Simple Scaling (Divide by Max)
+The simplest method is to divide the feature by its maximum value.
+
+**Formula:** 
+$$x_{scaled} = \frac{x}{x_{max}}$$
+
+**Example:**
+*   $x_1$ (size): Range $300 \le x_1 \le 2000$
+    *   $x_1 = \frac{x_1}{2000}$
+    *   New range: $0.15 \le x_1 \le 1$
+*   $x_2$ (bedrooms): Range $0 \le x_2 \le 5$
+    *   $x_2 = \frac{x_2}{5}$
+    *   New range: $0 \le x_2 \le 1$
+
+> [!note] 
+> This is exactly what the quiz question was referring to. It guarantees the new maximum is 1.
+
+![](../../00-Attachments/Pasted%20image%2020261024230426.png)---
+
+## 2. Mean Normalization
+Instead of just dividing by the max, we subtract the mean ($\mu$) first. This centers the data around $0$. 
+
+**Formula:**
+$$x = \frac{x - \mu}{x_{max} - x_{min}}$$
+
+**Example:**
+*   $x_1$: mean $\mu_1 = 600$, max = 2000, min = 300
+    *   $x_1 = \frac{x_1 - 600}{2000 - 300} = \frac{x_1 - 600}{1700}$
+    *   New range: $-0.18 \le x_1 \le 0.82$
+*   $x_2$: mean $\mu_2 = 2.3$, max = 5, min = 0
+    *   $x_2 = \frac{x_2 - 2.3}{5 - 0}$
+    *   New range: $-0.46 \le x_2 \le 0.54$
+
+> [!tip] 
+> The range doesn't have to be exactly $-1$ to $1$. It just needs to be roughly symmetric around $0$.
+
+
+![](../../00-Attachments/Pasted%20image%2020261024230450.png)
+---
+
+
+## 3. Z-Score Normalization (Standardization)
+This is the most common method. It subtracts the mean and divides by the **standard deviation** ($\sigma$). 
+
+**Formula:**
+$$x = \frac{x - \mu}{\sigma}$$
+
+**Example:**
+*   $x_1$: mean $\mu_1 = 600$, standard deviation $\sigma_1 = 450$
+    *   $x_1 = \frac{x_1 - 600}{450}$
+    *   New range: $-0.67 \le x_1 \le 3.1$
+*   $x_2$: mean $\mu_2 = 2.3$, standard deviation $\sigma_2 = 1.4$
+    *   $x_2 = \frac{x_2 - 2.3}{1.4}$
+    *   New range: $-1.6 \le x_2 \le 1.9$
+
+> [!info] 
+> Standard deviation is a measure of how spread out the data is from the mean. Z-score normalization results in a distribution with a mean of $0$ and a standard deviation of $1$.
+
+![](../../00-Attachments/Pasted%20image%2020261024230502.png)
+---
+
+## 4. When Do You Need to Rescale?
+
+The general rule of thumb is to aim for each feature $x_j$ to be roughly in the range:
+**$-1 \le x_j \le 1$**
+
+However, it doesn't have to be perfect. Here is a guide from the course:
+
+| Range | Action | Reasoning |
+| :--- | :--- | :--- |
+| $0 \le x_1 \le 3$ | **Okay, no rescaling** | Close enough to $1$. |
+| $-2 \le x_2 \le 0.5$ | **Okay, no rescaling** | Close enough to $1$. |
+| $-100 \le x_3 \le 100$ | **Too large $\rightarrow$ rescale** | Much larger than $1$. |
+| $-0.001 \le x_4 \le 0.001$ | **Too small $\rightarrow$ rescale** | Much smaller than $1$. |
+| $98.6 \le x_5 \le 105$ | **Too large $\rightarrow$ rescale** | Even though the *range* is small ($7$), the values themselves are huge. We care about the absolute numbers. |
+
+*(Acceptable ranges are generally anywhere from $-3$ to $3$, or $-0.3$ to $0.3$, but you should definitely rescale if the max is in the 100s or the min is in the 0.001s).*
+
+![](../../00-Attachments/Pasted%20image%2020261024230514.png)
+
+![](../../00-Attachments/Pasted%20image%2020261024230534.png)
+
+![](../../00-Attachments/Pasted%20image%2020261024230540.png)
