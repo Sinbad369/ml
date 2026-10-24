@@ -435,3 +435,38 @@ The derivative term $\frac{\partial}{\partial w} J(w, b)$ determines the directi
 ![](../../00-Attachments/Pasted%20image%2020261017061424.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261017061432.png)
+
+
+# Gradient Descent — Learning Rate ($\alpha$) & Convergence Properties
+
+The **learning rate ($\alpha$)** scales the step size taken towards the minimum in each iteration.
+
+---
+
+## 1. Impact of Learning Rate Choice
+
+| Learning Rate | Algorithm Behavior | Consequence |
+| :--- | :--- | :--- |
+| **Too Small** | Takes microscopic steps downhill[cite: 41]. | Gradient descent will be **extremely slow** to reach the minimum[cite: 41]. |
+| **Too Large** | Overshoots the minimum and bounces across the valley[cite: 41]. | May **fail to converge** or completely **diverge** (cost $J(w)$ increases)[cite: 41]. |
+![](../../00-Attachments/Pasted%20image%2020261024170450.png)
+---
+
+## 2. Fixed Point at a Local Minimum
+
+When $w$ is already at a **local minimum**:
+- The tangent line is completely flat $\implies$ **Slope / Derivative $\frac{d}{dw}J(w) = 0$**.
+- **Update Calculation:**
+  $$w = w - \alpha \cdot (0) \implies w = w$$
+- **Result:** Once at a minimum, gradient descent leaves $w$ unchanged, keeping the algorithm at the minimum.
+![](../../00-Attachments/Pasted%20image%2020261024170459.png)
+---
+
+## 3. Automatic Step-Size Decay (With Fixed $\alpha$)
+
+Gradient descent can reach a local minimum using a **fixed learning rate $\alpha$** without manually reducing $\alpha$ over time:
+
+1. As $w$ approaches a minimum, the slope of the curve becomes flatter $\implies$ **Derivative $\frac{d}{dw}J(w)$ becomes smaller.
+2. Because the step length is $\alpha \cdot \frac{d}{dw}J(w)$, smaller derivatives produce **progressively smaller update steps**.
+3. **Conclusion:** The algorithm naturally slows down and settles smoothly into the minimum.
+![](../../00-Attachments/Pasted%20image%2020261024170512.png)
