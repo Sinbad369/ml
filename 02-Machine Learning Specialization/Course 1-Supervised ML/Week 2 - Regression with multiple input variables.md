@@ -254,3 +254,44 @@ There is another algorithm that can solve for $w$ and $b$ for linear regression 
 *   Some machine learning libraries might use the Normal Equation under the hood for linear regression.
 *   **Gradient descent is the recommended method** for finding parameters $w$ and $b$ because it scales well to large datasets and generalizes to other algorithms (which you will learn later).
 ![](../../00-Attachments/Pasted%20image%2020261024195643.png)
+
+# Multiple Linear Regression: Practice & Concepts
+
+## 1. Understanding Notation
+When dealing with multiple features, we use specific subscript and superscript notation:
+
+*   **\(x_j^{(i)}\)**: The value of feature \(j\) in the \(i\)-th training example.
+    *   **Subscript (\(j\))**: Indicates the feature index (e.g., 1 = size, 2 = bedrooms, 3 = floors, 4 = age).
+    *   **Superscript (\(i\))**: Indicates the row/training example index (e.g., 1st house, 2nd house, 3rd house).
+
+> [!example] Example from Quiz
+> **Question:** What is \(x_4^{(3)}\)?
+> *   Look at feature \(x_4\) ("Age of home").
+> *   Look at the 3rd row (training example 3).
+> *   **Answer:** 30.
+
+---
+
+## 2. Benefits of Vectorization
+Vectorization (using functions like `np.dot` instead of `for` loops) is highly recommended in Machine Learning. 
+
+**Potential benefits include:**
+1.  **Speed:** It makes code run significantly faster.
+2.  **Conciseness:** It makes code shorter and easier to read.
+3.  **Hardware Utilization:** It allows code to run more easily on parallel compute hardware (like GPUs or modern CPUs with SIMD instructions).
+
+> [!tip] Exam Tip
+> If asked for the *best* option regarding benefits, **"All of the above"** is usually the correct answer for vectorization questions.
+
+---
+
+## 3. Gradient Descent & Learning Rate
+The learning rate \(\alpha\) dictates the size of the steps taken during gradient descent.
+
+> [!warning] Misconception
+> **Myth:** Doubling the learning rate \(\alpha\) will always make gradient descent converge twice as fast.
+> 
+> **Fact:** **False.** 
+> *   If \(\alpha\) is too small, convergence is slow.
+> *   If \(\alpha\) is too large, gradient descent may overshoot the minimum and **diverge** (fail to converge entirely). 
+> *   Finding a good learning rate is a tuning process, not just a matter of scaling it up linearly.
