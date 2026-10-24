@@ -177,3 +177,80 @@ NumPy handles the element-wise subtraction automatically.
 > *Reasoning:* Option A is hardcoded and lacks generality, Option B is unvectorized. Option C utilizes NumPy's optimized dot product.
 
 ![](../../00-Attachments/Pasted%20image%2020261024190127.png)
+
+# Gradient Descent for Multiple Linear Regression
+
+## Overview
+This note covers how the notation and math change when moving from a single feature to multiple features in linear regression. It also details how to implement Gradient Descent for multiple variables using vector notation, and compares it to an alternative method called the "Normal Equation."
+
+---
+
+## 1. Vector Notation
+
+In previous weeks, parameters were written as individual variables. We now group them into vectors to simplify the math and code.
+
+| Concept | Previous Notation | Vector Notation |
+| :--- | :--- | :--- |
+| **Parameters** | $w_1, \dots, w_n$ <br> $b$ | $\vec{w} = [w_1 \dots w_n]$ (vector of length $n$) <br> $b$ (still a single number) |
+| **Model** | $f_{\vec{w},b}(\vec{x}) = w_1x_1 + \dots + w_nx_n + b$ | $f_{\vec{w},b}(\vec{x}) = \vec{w} \cdot \vec{x} + b$ <br> *(dot product)* |
+| **Cost Function** | $J(w_1, \dots, w_n, b)$ | $J(\vec{w}, b)$ |
+![](../../00-Attachments/Pasted%20image%2020261024195612.png)
+---
+
+## 2. Gradient Descent (Multiple Features)
+
+The update rules for gradient descent look similar but must be applied to every weight $w_j$ (from $j=1$ to $n$) and the bias $b$.
+
+### The Algorithm (Repeat until convergence)
+
+**One Feature (Previous):**
+$$
+w = w - \alpha \frac{\partial}{\partial w} J(w,b)
+$$
+$$
+b = b - \alpha \frac{\partial}{\partial b} J(w,b)
+$$
+
+**Multiple Features ($n \ge 2$):**
+$$
+w_j = w_j - \alpha \frac{\partial}{\partial w_j} J(\vec{w},b) \quad \text{for } j=1 \dots n
+$$
+$$
+b = b - \alpha \frac{\partial}{\partial b} J(\vec{w},b)
+$$
+
+### Expanded Derivatives
+When we expand the derivative term $\frac{\partial}{\partial w_j} J(\vec{w},b)$, we get the actual update formulas used in code.
+
+**For weight $w_j$:**
+$$
+w_j = w_j - \alpha \frac{1}{m} \sum_{i=1}^{m} (f_{\vec{w},b}(\vec{x}^{(i)}) - y^{(i)}) x_j^{(i)}
+$$
+
+**For bias $b$:**
+$$
+b = b - \alpha \frac{1}{m} \sum_{i=1}^{m} (f_{\vec{w},b}(\vec{x}^{(i)}) - y^{(i)})
+$$
+
+> [!warning] Crucial Rule
+> **Simultaneously update** $w_j$ (for $j=1, \dots, n$) and $b$. 
+> You must calculate all the new values using the *old* values before assigning them.
+![](../../00-Attachments/Pasted%20image%2020261024195620.png)
+---
+
+
+## 3. An Alternative to Gradient Descent: Normal Equation
+
+There is another algorithm that can solve for $w$ and $b$ for linear regression specifically.
+
+### The Normal Equation
+*   **How it works:** It solves for $w$ and $b$ analytically **without iterations**.
+*   **Limitations:** 
+    *   It **only** works for linear regression.
+    *   It does not generalize to other learning algorithms (like logistic regression or neural networks).
+    *   It becomes very slow when the number of features is large (typically $> 10,000$).
+
+### What you need to know for this course:
+*   Some machine learning libraries might use the Normal Equation under the hood for linear regression.
+*   **Gradient descent is the recommended method** for finding parameters $w$ and $b$ because it scales well to large datasets and generalizes to other algorithms (which you will learn later).
+![](../../00-Attachments/Pasted%20image%2020261024195643.png)
