@@ -505,3 +505,68 @@ To automate the stopping process, we can use a mathematical threshold to declare
 > If you aren't sure if gradient descent is working, always plot $J$ vs. iterations. Look for a smooth downward trend. 
 
 ![](../../00-Attachments/Pasted%20image%2020261024231300.png)
+
+
+# Choosing the Learning Rate
+
+## Overview
+The learning rate (alpha) is one of the most important hyperparameters in machine learning. If it is too large, gradient descent will fail to converge (diverge). If it is too small, gradient descent will be painfully slow. This note covers how to debug and choose the right learning rate.
+
+---
+
+## 1. Identifying Problems with Gradient Descent
+
+By plotting the learning curve (Cost J vs. number of iterations), you can diagnose issues:
+
+*   **Healthy:** The curve smoothly goes down and eventually flattens out.
+*   **Problem 1 (Bug or alpha too large):** The curve goes up and down (zig-zags). 
+    *   *Check:* Ensure your update rule uses a **minus sign** (w_1 = w_1 - alpha * d_1). A plus sign is a common coding bug that causes divergence.
+*   **Problem 2 (alpha too large):** The curve continuously goes **up**.
+    *   *Fix:* Decrease alpha.
+![](../../00-Attachments/Pasted%20image%2020261024232921.png)
+---
+
+## 2. Visualizing the Learning Rate
+
+Imagine the cost function as a bowl. The goal is to reach the bottom (minimum).
+
+> [!failure] Alpha is too big
+> Gradient descent takes massive steps, constantly overshooting the minimum and bouncing from one side of the bowl to the other. It may even diverge completely (going up the sides).
+
+> [!success] Use a smaller alpha
+> With a small enough learning rate, the cost J **should decrease on every single iteration**. Gradient descent will take a smooth, direct path to the minimum.
+
+> [!warning] If alpha is too small
+> The algorithm will eventually reach the minimum, but it will take a massive number of iterations to get there. The tiny steps make the process very slow.
+
+![](../../00-Attachments/Pasted%20image%2020261024232931.png)
+---
+
+## 3. How to Tune Alpha (Values to Try)
+
+When trying to find a good learning rate, test a range of values by multiplying by roughly **3x** each time.
+
+*Example sequence:*
+0.001 → 0.003 → 0.01 → 0.03 → 0.1 → 0.3 → 1
+
+**Workflow:**
+1.  Start with a small value (e.g., alpha = 0.001). 
+2.  If it's too slow, increase to 0.003, then 0.01, etc.
+3.  Find the largest value that causes J to decrease on *every* iteration. 
+
+*(For example, if alpha=0.3 causes the cost to increase, but alpha=0.1 decreases smoothly, then 0.1 is a good choice).*
+
+---
+
+## 4. Practice Question / Debugging
+
+> [!question] Quiz Scenario
+> You run gradient descent for 15 iterations with alpha = 0.3 and compute J(w). You find that the value of J(w) **increases** over time. How should you adjust alpha?
+> 
+> **Answer:** Try a **smaller** value of alpha (e.g., alpha = 0.1).
+> 
+> *Reasoning:* An increasing cost function means gradient descent is diverging. The steps are too large. We must lower the learning rate to take smaller steps so the cost decreases.
+
+![](../../00-Attachments/Pasted%20image%2020261024232941.png)
+
+![](../../00-Attachments/Pasted%20image%2020261024232946.png)
