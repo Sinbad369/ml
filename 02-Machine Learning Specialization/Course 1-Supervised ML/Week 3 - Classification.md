@@ -455,3 +455,5 @@ Because the update rules are the same, everything we learned earlier applies her
 3.  **Feature Scaling:** You should still scale your features so gradient descent converges faster.
 ![](../../00-Attachments/Pasted%20image%2020261102125428.png)
 ---
+
+![](../../00-Attachments/Pasted%20image%2020261102125829.png)
