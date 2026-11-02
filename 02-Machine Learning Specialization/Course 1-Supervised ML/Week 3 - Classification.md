@@ -179,3 +179,50 @@ When we change the threshold, we affect the types of errors the model makes:
 
 
 ![](../../00-Attachments/Pasted%20image%2020261102103700.png)
+
+
+# Practice Quiz: Classification with Logistic Regression
+
+## 1. Identifying Classification Tasks
+**Rule:** Classification predicts discrete categories (Yes/No, True/False, Cat/Dog). Regression predicts continuous numbers (price, weight, dosage).
+
+*   ✅ *Classification:* Determine if a tumor is malignant or not.
+*   ❌ *Regression:* Determine how much medication to prescribe (measured in milligrams).
+
+---
+
+## 2. The Sigmoid Function Behavior
+Recall the sigmoid function: `g(z) = 1 / (1 + e^(-z))`
+
+*   **If z is a large positive number:** `e^(-z)` approaches 0. The denominator becomes `1 + 0`. The output `g(z)` is **near one (1)**.
+*   **If z is a large negative number:** `e^(-z)` becomes a huge number. The denominator becomes massive. The output `g(z)` is **near zero (0)**.
+*   **If z = 0:** `e^0 = 1`. The output is `1 / (1+1) = 0.5`.
+
+---
+
+## 3. Predicting with Thresholds
+By default, logistic regression uses a threshold of **0.5**.
+
+*   If the model outputs `g(z) >= 0.5`, predict the positive class (e.g., "It is a cat").
+*   If the model outputs `g(z) < 0.5`, predict the negative class (e.g., "It is not a cat").
+
+*(Remember: You can change this threshold based on your specific problem, like we saw with the tumor detection example!).*
+
+---
+
+## 4. Decision Boundaries and Features
+> [!question] True/False: No matter what features you use, the decision boundary learned by logistic regression will be linear.
+> 
+> **Answer: FALSE.**
+> 
+> **Reasoning:** 
+> *   If you only use linear features (x1, x2), the boundary is a straight line.
+> *   If you use **polynomial features** (x1^2, x2^2, x1*x2), the decision boundary becomes a curve (like a circle or ellipse). The logistic regression model itself is still linear in its *parameters* (w, b), but the shape of the boundary in the feature space depends entirely on the features you feed it.
+
+![](../../00-Attachments/Pasted%20image%2020261102104156.png)
+
+![](../../00-Attachments/Pasted%20image%2020261102104215.png)
+
+![](../../00-Attachments/Pasted%20image%2020261102104231.png)
+
+![](../../00-Attachments/Pasted%20image%2020261102104244.png)
