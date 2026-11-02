@@ -457,3 +457,61 @@ Because the update rules are the same, everything we learned earlier applies her
 ---
 
 ![](../../00-Attachments/Pasted%20image%2020261102125829.png)
+
+
+
+# The Problem of Overfitting
+
+## Overview
+The goal of machine learning is **generalization**: making accurate predictions on *new, unseen* data. When a model performs well on training data but poorly on new data, it has failed to generalize. This is usually caused by either **Underfitting** or **Overfitting**.
+
+---
+
+## 1. The Three Scenarios (Regression Example)
+
+Imagine predicting house prices based on size.
+
+*   **Underfitting (High Bias):** 
+    *   The model is too simple (e.g., a straight line).
+    *   It does not fit the training set well.
+    *   *Analogy:* "Too cold." You haven't cooked the model enough.
+*   **Just Right (Generalization):**
+    *   The model is balanced (e.g., a slight curve).
+    *   It fits the training set pretty well and should predict new data well.
+    *   *Analogy:* "Delicious." Perfectly cooked.
+*   **Overfitting (High Variance):**
+    *   The model is too complex (e.g., a wiggly polynomial line that hits every single data point).
+    *   It fits the training set extremely well (almost zero training error), but it will perform terribly on new data because it memorized the random noise.
+    *   *Analogy:* "Too hot." You overcooked it.
+
+![](../../00-Attachments/Pasted%20image%2020261102135410.png)
+---
+
+## 2. The Three Scenarios (Classification Example)
+
+The same concepts apply to Logistic Regression with Decision Boundaries.
+
+*   **Underfitting:** Using only linear features (`z = w1x1 + w2x2 + b`). The decision boundary is a straight line, which is too simple to separate the classes properly.
+*   **Just Right:** Using some polynomial features (like `x1^2` and `x2^2`). The decision boundary curves nicely to separate the data without being overly complicated.
+*   **Overfitting:** Using many high-degree polynomial features. The decision boundary becomes a wildly wiggly shape that tries to perfectly isolate every single red 'x' and blue 'o', including the outliers. 
+![](../../00-Attachments/Pasted%20image%2020261102135419.png)
+---
+
+## 3. Key Terminology
+
+> [!info] Bias vs. Variance
+> *   **High Bias** = **Underfitting**. The model has strong, incorrect assumptions (like assuming the data is a straight line).
+> *   **High Variance** = **Overfitting**. The model is highly sensitive to small fluctuations in the training data (it "varies" wildly if you change the data slightly).
+
+> [!question] Quiz Question
+> When a model fits the training data well but does not work well with new examples that are not in the training set, this is an example of:
+> 
+> **Answer:** **Overfitting (high variance)**.
+> *Reasoning:* It does not generalize well to new examples.
+
+![](../../00-Attachments/Pasted%20image%2020261102135427.png)
+---
+
+## Next Steps
+*   How do we fix overfitting? (Coming up next: Regularization).
+*   How do we detect it? (Splitting data into Training and Test sets).
