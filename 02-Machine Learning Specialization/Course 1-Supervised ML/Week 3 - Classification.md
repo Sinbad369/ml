@@ -385,3 +385,73 @@ Because `y` can only be 0 or 1, it acts like a switch:
 This is why we don't have to write an `if/else` statement in our code; the math handles it automatically!
 
 ![](../../00-Attachments/Pasted%20image%2020261102114915.png)
+
+# Gradient Descent for Logistic Regression
+
+## Overview
+Now that we have the cost function for Logistic Regression, we need to find the parameters $w$ and $b$ that minimize it. We do this using **Gradient Descent**. 
+
+The great news is that the math for gradient descent looks almost identical to Linear Regression!
+
+![](../../00-Attachments/Pasted%20image%2020261102125406.png)
+
+---
+
+## 1. The Cost Function (Review)
+We are trying to minimize this cost function:
+`J(w,b) = -(1/m) * sum[ y * log(f_wb(x)) + (1 - y) * log(1 - f_wb(x)) ]`
+
+To use gradient descent, we need to compute the partial derivatives of this cost function with respect to $w_j$ and $b$.
+
+---
+
+## 2. The Gradient Descent Algorithm
+
+**Repeat until convergence (simultaneously update all $w_j$ and $b$):**
+
+`w_j = w_j - alpha * (d/dw_j) J(w,b)`
+`b = b - alpha * (d/db) J(w,b)`
+
+*(Where alpha is the learning rate).*
+
+### The Expanded Derivatives
+When you do the calculus (which the course skips over, but it's surprisingly clean), the derivatives simplify to:
+
+**For weights $w_j$ (where $j = 1 \dots n$):**
+`d/dw_j J(w,b) = (1/m) * sum[ (f_wb(x) - y) * x_j ]`
+
+**For bias $b$:**
+`d/db J(w,b) = (1/m) * sum[ (f_wb(x) - y) ]`
+
+![](../../00-Attachments/Pasted%20image%2020261102125419.png)
+---
+
+## 3. The Final Update Rules
+
+Putting it all together, the update rules you actually code are:
+
+> [!success] Logistic Regression Update Rules
+> `w_j = w_j - alpha * (1/m) * sum[ (f_wb(x) - y) * x_j ]`
+> 
+> `b = b - alpha * (1/m) * sum[ (f_wb(x) - y) ]`
+
+---
+
+## 4. The Magic: It Looks Just Like Linear Regression!
+
+If you look closely at the update rules above, **they are exactly the same equations** as the ones we used for Linear Regression in Week 1.
+
+**Why?**
+Even though the *model* changed (we added the sigmoid function), and the *cost function* changed (we switched to log-loss), the derivative of that new cost function happens to simplify to the exact same form.
+
+> [!important] The Only Difference
+> The only difference is what `f_wb(x)` is!
+> *   **Linear Regression:** `f_wb(x) = w * x + b`
+> *   **Logistic Regression:** `f_wb(x) = 1 / (1 + e^(-(w*x + b)))` (The Sigmoid function)
+
+Because the update rules are the same, everything we learned earlier applies here:
+1.  **Monitoring:** You still use a learning curve to check for convergence.
+2.  **Vectorization:** You can (and should) use `np.dot()` to speed up the code.
+3.  **Feature Scaling:** You should still scale your features so gradient descent converges faster.
+![](../../00-Attachments/Pasted%20image%2020261102125428.png)
+---
