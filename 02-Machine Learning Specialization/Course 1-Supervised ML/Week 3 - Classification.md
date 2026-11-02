@@ -301,3 +301,87 @@ To get the total cost over all `m` training examples, we sum the losses and divi
 
 ![](../../00-Attachments/Pasted%20image%2020261102112548.png)
 
+
+# Simplified Cost Function for Logistic Regression
+
+## Overview
+We previously defined the logistic loss function using an "if/else" structure (one equation if y=1, and another if y=0). While this works, it's messy to write in code and math. We can combine both cases into a single, elegant equation.
+
+---
+
+## 1. The Combined Loss Function
+
+Because the target label $y$ can only be exactly **1** or **0**, we can use them as mathematical switches to turn parts of the equation on and off.
+
+**The Simplified Loss Function:**
+$$ L(f_{\vec{w},b}(\vec{x}), y) = -y \log(f_{\vec{w},b}(\vec{x})) - (1 - y) \log(1 - f_{\vec{w},b}(\vec{x})) $$
+
+### How the "Switches" Work:
+
+> [!example] Case 1: If the true label $y = 1$
+> *   The first term becomes: $-1 \cdot \log(f)$ (This stays active)
+> *   The second term becomes: $-(1 - 1) \cdot \log(1-f) = -0 \cdot \log(1-f) = 0$ (This disappears entirely)
+> *   **Result:** $L = -\log(f_{\vec{w},b}(\vec{x}))$
+
+![](../../00-Attachments/Pasted%20image%2020261102114439.png)
+
+> [!example] Case 2: If the true label $y = 0$
+> *   The first term becomes: $-0 \cdot \log(f) = 0$ (This disappears entirely)
+> *   The second term becomes: $-(1 - 0) \cdot \log(1-f) = -1 \cdot \log(1 - f)$ (This stays active)
+> *   **Result:** $L = -\log(1 - f_{\vec{w},b}(\vec{x}))$
+
+![](../../00-Attachments/Pasted%20image%2020261102114449.png)
+---
+
+## 2. The Simplified Cost Function
+
+To get the total Cost Function $J(\vec{w},b)$ for the entire training set of $m$ examples, we simply sum up the losses for all examples and divide by $m$.
+
+**The Final Equation:**
+$$ J(\vec{w},b) = -\frac{1}{m} \sum_{i=1}^{m} \left[ y^{(i)} \log(f_{\vec{w},b}(\vec{x}^{(i)})) + (1 - y^{(i)}) \log(1 - f_{\vec{w},b}(\vec{x}^{(i)})) \right] $$
+
+*(Note: I have factored out the negative sign to the front of the sum to make it look cleaner, which is standard practice in textbooks).*
+![](../../00-Attachments/Pasted%20image%2020261102114513.png)
+---
+
+## 3. Why This Matters
+
+> [!success] A Convex Landscape
+> This specific cost function has a special mathematical property: it is **convex**. 
+> 
+> This means it looks like a single, smooth bowl. When we use Gradient Descent, it is guaranteed to find the single "global minimum" at the bottom of the bowl, regardless of where we start.
+
+*(Note on the last screenshot: The professor mentions "Maximum Likelihood Estimation." This is a statistics concept that proves mathematically why this specific log-loss function is the "correct" one to use for logistic regression. You don't need to know the deep math behind it for this course, just that it works!)*
+
+![](../../00-Attachments/Pasted%20image%2020261102114521.png)
+
+# Quiz Review: Cost Function for Logistic Regression
+
+## 1. Loss vs. Cost (Terminology)
+
+In machine learning, these two words are often used interchangeably in casual conversation, but in this course, they have very strict definitions:
+
+*   **Loss (L):** The error for a **single** training example.
+    *   Formula: `L(f_wb(x), y)`
+*   **Cost (J):** The **average** of all the losses across the entire training set of `m` examples.
+    *   Formula: `J(w,b) = (1/m) * sum( Loss )`
+
+> [!tip] Memory Trick
+> Think of a grocery bill. The **loss** is the price of one single apple. The **cost** is the total bill for all the apples you bought.
+
+![](../../00-Attachments/Pasted%20image%2020261102114902.png)
+---
+
+## 2. Simplifying the Loss Function
+
+The combined loss function is:
+`L = -y * log(f) - (1 - y) * log(1 - f)`
+
+Because `y` can only be 0 or 1, it acts like a switch:
+
+*   **If y = 1:** The second half `(1 - 1)` becomes 0. The expression simplifies to `-log(f)`.
+*   **If y = 0:** The first half `-0 * log(f)` becomes 0. The second half `(1 - 0)` becomes 1. The expression simplifies to `-log(1 - f)`.
+
+This is why we don't have to write an `if/else` statement in our code; the math handles it automatically!
+
+![](../../00-Attachments/Pasted%20image%2020261102114915.png)
