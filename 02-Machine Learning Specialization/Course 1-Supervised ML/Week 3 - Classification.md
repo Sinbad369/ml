@@ -133,3 +133,49 @@ This reads as: "The probability that $y = 1$, given the input $\vec{x}$, paramet
 > *Reasoning:* If $z = -100$, then $e^{-(-100)} = e^{100}$. This is a massive number, so the denominator becomes huge ($1 + \text{huge}$). Dividing \(1\) by a huge number gives a result extremely close to \(0\).
 
 ![](../../00-Attachments/Pasted%20image%2020261102101201.png)
+
+
+# Threshold Selection in Classification
+
+## Overview
+By default, logistic regression uses a threshold of **0.5**. However, depending on the real-world problem, you may want to change this threshold. The threshold determines your balance between **False Positives** and **False Negatives**.
+
+---
+
+## 1. The Trade-off
+Let's look at a tumor detection algorithm:
+*   **Positive Class ($y=1$):** Has a malignant tumor.
+*   **Negative Class ($y=0$):** Healthy.
+
+When we change the threshold, we affect the types of errors the model makes:
+*   **False Negative:** Model predicts $0$ (healthy), but the patient actually has a tumor. *(Very dangerous!)*
+*   **False Positive:** Model predicts $1$ (tumor), but the patient is actually healthy. *(Causes anxiety and requires more tests, but not deadly).*
+![](../../00-Attachments/Pasted%20image%2020261102103541.png)
+---
+
+## 2. Choosing a High Threshold (e.g., 0.9)
+*   **Rule:** Predict $\hat{y}=1$ only if the model is 90% or more certain.
+*   **Result:** The model becomes very "cautious" about predicting tumors.
+*   **Consequence:** It will miss many actual tumors (High False Negatives). 
+*   **When to use:** When False Positives are extremely costly (e.g., triggering an automatic system shutdown).
+![](../../00-Attachments/Pasted%20image%2020261102103553.png)
+---
+![](../../00-Attachments/Pasted%20image%2020261102103624.png)![](../../00-Attachments/Pasted%20image%2020261102103605.png)
+## 3. Choosing a Low Threshold (e.g., 0.2)
+*   **Rule:** Predict $\hat{y}=1$ even if the model is only 20% certain.
+*   **Result:** The model becomes very "sensitive" and flags almost anything suspicious.
+*   **Consequence:** It will flag many healthy people as sick (High False Positives), but it will **rarely miss a tumor**.
+*   **When to use:** When it is critical not to miss a positive case (e.g., Tumor detection, fraud detection, spam filtering).
+
+
+> [!important] The Golden Rule of Thresholds
+> **The threshold does not have to be 0.5!** 
+> 
+> *   If you want to avoid missing positive cases (high recall), **lower** the threshold.
+> *   If you want to be very confident before predicting positive (high precision), **raise** the threshold.
+
+> [!tip] Real-world context
+> In this quiz example, the algorithm is just a *flagging tool* for a specialist to review. Even if it falsely flags 10 healthy people (False Positives), the specialist can quickly dismiss them. But if it misses 1 real tumor (False Negative), that's a life-threatening error. Therefore, you use a **low threshold**.
+
+
+![](../../00-Attachments/Pasted%20image%2020261102103700.png)
