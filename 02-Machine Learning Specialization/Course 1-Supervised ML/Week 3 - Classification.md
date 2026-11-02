@@ -65,3 +65,54 @@ Because linear regression doesn't work well here, we introduce a new algorithm: 
 > 
 > **Answer:** **B**
 > *Reasoning:* Deciding "cat vs. not cat" is a binary classification task (Yes/No, True/False, 1/0). Estimating weight is a regression task because weight is a continuous number.
+
+
+
+## 1. The Sigmoid Function
+
+The core of logistic regression is the **Sigmoid function** (also called the logistic function).
+
+**Formula:**
+$$ g(z) = \frac{1}{1 + e^{-z}} $$
+
+**Key Properties:**
+*   **Outputs:** Always between $0$ and $1$ ($0 < g(z) < 1$).
+*   **$z = 0$:** $g(0) = \frac{1}{1 + e^0} = \frac{1}{2} = 0.5$
+*   **Large positive $z$:** $e^{-z}$ approaches $0$, so $g(z)$ approaches $1$.
+*   **Large negative $z$:** $e^{-z}$ becomes a huge number, so $g(z)$ approaches $0$.
+
+---
+
+## 2. The Logistic Regression Model
+
+To build our model, we take the linear equation we already know ($z = \vec{w} \cdot \vec{x} + b$) and pass it through the Sigmoid function.
+
+**The Model:**
+$$ f_{\vec{w},b}(\vec{x}) = g(\vec{w} \cdot \vec{x} + b) = \frac{1}{1 + e^{-(\vec{w} \cdot \vec{x} + b)}} $$
+
+*   $z$ is the linear combination: $z = \vec{w} \cdot \vec{x} + b$
+*   $g(z)$ is the sigmoid function.
+*   The output $f_{\vec{w},b}(\vec{x})$ is the final prediction.
+## 3. Interpretation of the Output
+In logistic regression, the output is not just a random number between 0 and 1. It represents a **probability**.
+**Mathematical Notation:**
+\[
+ f_{\vec{w},b}(\vec{x}) = P(y = 1 | \vec{x}; \vec{w},b) 
+\]
+This reads as: "The probability that \(y = 1\), given the input \(\vec{x}\), parameterized by \(\vec{w}\) and \(b\)."
+**Example (Tumor Classification):**
+*   \(y = 0\) (Not malignant)
+*   \(y = 1\) (Malignant)
+*   If the model outputs \(f_{\vec{w},b}(\vec{x}) = 0.7\), it means there is a **70% chance** that the tumor is malignant (\(y=1\)).
+> [!info] Probability Rules
+> Because there are only two possible outcomes:
+> \[
+ P(y = 0) + P(y = 1) = 1 
+\]
+> So, if the model predicts a 70% chance of it being malignant (\(P(y=1) = 0.7\)), there is a 30% chance it is not malignant (\(P(y=0) = 0.3\)).
+---
+## 4. Quiz Practice
+> [!question] What happens if \(z\) is a large negative number in the sigmoid function \(g(z) = \frac{1}{1+e^{-z}}\)?
+> 
+> **Answer:** \(g(z)\) is near zero.
+> *Reasoning:* If \(z = -100\), then \(e^{-(-100)} = e^{100}\). This is a massive number, so the denominator becomes huge (\(1 + \text{huge}\)). Dividing \(1\) by a huge number gives a result extremely close to \(0\).
