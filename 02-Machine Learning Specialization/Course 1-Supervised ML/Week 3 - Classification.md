@@ -226,3 +226,78 @@ By default, logistic regression uses a threshold of **0.5**.
 ![](../../00-Attachments/Pasted%20image%2020261102104231.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261102104244.png)
+
+# Cost Function for Logistic Regression
+![](../../00-Attachments/Pasted%20image%2020261102112514.png)
+## Overview
+In linear regression, we used the Squared Error cost function. However, for logistic regression, applying Squared Error results in a **non-convex** cost function (it looks wiggly with many local minima). If we use gradient descent on a non-convex function, it might get stuck in a local minimum instead of finding the global minimum.
+
+To fix this, we use a new **Logistic Loss Function** that guarantees a convex (bowl-shaped) cost function.
+
+---
+
+## 1. The Problem with Squared Error
+
+The Squared Error cost function looks like this:
+`J(w,b) = (1/m) * sum( (1/2) * (f_wb(x) - y)^2 )`
+
+*   **Linear Regression:** Because the model is a straight line, this creates a perfect bowl shape (**convex**). Gradient descent easily finds the bottom.
+*   **Logistic Regression:** Because the model uses the non-linear Sigmoid function, plugging it into the squared error creates a **non-convex** shape. Gradient descent can get stuck on the side of a hill (a local minimum) and fail to find the true bottom.
+![](../../00-Attachments/Pasted%20image%2020261102112520.png)
+---
+
+## 2. The Logistic Loss Function
+
+To ensure the cost function remains convex, we define the loss for a single training example `(x, y)` like this:
+
+**If the true label y = 1:**
+`Loss = -log( f_wb(x) )`
+
+**If the true label y = 0:**
+`Loss = -log( 1 - f_wb(x) )`
+
+*(Note: `log` here refers to the natural logarithm, often written as `ln`).*
+![](../../00-Attachments/Pasted%20image%2020261102112528.png)
+
+![](../../00-Attachments/Pasted%20image%2020261102112541.png)
+### Why does this work?
+Let's look at the graphs for these two scenarios:
+
+> [!example] Scenario A: y = 1 (The true label is 1)
+> The model predicts `f_wb(x)` (a number between 0 and 1). The loss is `-log(f_wb(x))`.
+> *   If the model predicts **1** (correct): `-log(1) = 0`. The loss is zero!
+> *   If the model predicts **0** (completely wrong): `-log(0)` approaches **infinity**. The model is heavily penalized.
+> *   *This forces the model to output values close to 1 when the true label is 1.*
+
+> [!example] Scenario B: y = 0 (The true label is 0)
+> The loss is `-log(1 - f_wb(x))`.
+> *   If the model predicts **0** (correct): `-log(1 - 0) = -log(1) = 0`. The loss is zero!
+> *   If the model predicts **1** (completely wrong): `-log(1 - 1) = -log(0)` approaches **infinity**. The model is heavily penalized.
+> *   *This forces the model to output values close to 0 when the true label is 0.*
+
+**The Goal:** We want the loss to be as small as possible. The loss is lowest when the prediction `f_wb(x)` is close to the true label `y`.
+![](../../00-Attachments/Pasted%20image%2020261102112558.png)
+---
+
+## 3. The Simplified Cost Function
+
+Instead of writing an `if/else` statement, we can combine the two loss functions into a single elegant equation. 
+
+Because `y` is always exactly either `0` or `1`, we can multiply each loss term by `y` and `(1-y)` respectively. Whichever label is false, that term becomes zero and cancels out!
+
+**The Combined Loss:**
+`Loss = -y * log( f_wb(x) ) - (1 - y) * log( 1 - f_wb(x) )`
+
+**The Final Cost Function J(w,b):**
+To get the total cost over all `m` training examples, we sum the losses and divide by `m`:
+
+`J(w,b) = - (1/m) * sum[ y * log(f_wb(x)) + (1 - y) * log(1 - f_wb(x)) ]`
+
+*(Note: There is no `2` in the denominator here because this function naturally has the correct derivative without needing to cancel out a 2).*
+
+> [!important] Key Takeaway
+> This new Logistic Loss function is **convex**. 
+> This means when we run Gradient Descent, it will always converge to the global minimum, no matter where we initialize the parameters.
+
+![](../../00-Attachments/Pasted%20image%2020261102112548.png)
+
