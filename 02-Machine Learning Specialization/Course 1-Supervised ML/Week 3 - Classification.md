@@ -68,9 +68,16 @@ Because linear regression doesn't work well here, we introduce a new algorithm: 
 
 
 
+# Logistic Regression
+
+## Overview
+To solve classification problems (where $y$ is $0$ or $1$), we cannot use standard Linear Regression because it outputs values outside the \(0\) to \(1\) range. Instead, we use **Logistic Regression**, which uses the Sigmoid function to ensure the output is always a probability between \(0\) and \(1\).
+
+---
+
 ## 1. The Sigmoid Function
 
-The core of logistic regression is the **Sigmoid function** (also called the logistic function).
+The core of logistic regression is the **Sigmoid function** (also called the logistic function). 
 
 **Formula:**
 $$ g(z) = \frac{1}{1 + e^{-z}} $$
@@ -80,7 +87,7 @@ $$ g(z) = \frac{1}{1 + e^{-z}} $$
 *   **$z = 0$:** $g(0) = \frac{1}{1 + e^0} = \frac{1}{2} = 0.5$
 *   **Large positive $z$:** $e^{-z}$ approaches $0$, so $g(z)$ approaches $1$.
 *   **Large negative $z$:** $e^{-z}$ becomes a huge number, so $g(z)$ approaches $0$.
-
+![](../../00-Attachments/Pasted%20image%2020261102101135.png)
 ---
 
 ## 2. The Logistic Regression Model
@@ -93,26 +100,36 @@ $$ f_{\vec{w},b}(\vec{x}) = g(\vec{w} \cdot \vec{x} + b) = \frac{1}{1 + e^{-(\ve
 *   $z$ is the linear combination: $z = \vec{w} \cdot \vec{x} + b$
 *   $g(z)$ is the sigmoid function.
 *   The output $f_{\vec{w},b}(\vec{x})$ is the final prediction.
+![](../../00-Attachments/Pasted%20image%2020261102101141.png)
+---
+
 ## 3. Interpretation of the Output
+
 In logistic regression, the output is not just a random number between 0 and 1. It represents a **probability**.
+
 **Mathematical Notation:**
-\[
- f_{\vec{w},b}(\vec{x}) = P(y = 1 | \vec{x}; \vec{w},b) 
-\]
-This reads as: "The probability that \(y = 1\), given the input \(\vec{x}\), parameterized by \(\vec{w}\) and \(b\)."
+$$ f_{\vec{w},b}(\vec{x}) = P(y = 1 | \vec{x}; \vec{w},b) $$
+
+This reads as: "The probability that $y = 1$, given the input $\vec{x}$, parameterized by $\vec{w}$ and $b$."
+
 **Example (Tumor Classification):**
-*   \(y = 0\) (Not malignant)
-*   \(y = 1\) (Malignant)
-*   If the model outputs \(f_{\vec{w},b}(\vec{x}) = 0.7\), it means there is a **70% chance** that the tumor is malignant (\(y=1\)).
+*   $y = 0$ (Not malignant)
+*   $y = 1$ (Malignant)
+*   If the model outputs $f_{\vec{w},b}(\vec{x}) = 0.7$, it means there is a **70% chance** that the tumor is malignant ($y=1$).
+
 > [!info] Probability Rules
 > Because there are only two possible outcomes:
-> \[
- P(y = 0) + P(y = 1) = 1 
-\]
-> So, if the model predicts a 70% chance of it being malignant (\(P(y=1) = 0.7\)), there is a 30% chance it is not malignant (\(P(y=0) = 0.3\)).
+> $$ P(y = 0) + P(y = 1) = 1 $$
+> So, if the model predicts a 70% chance of it being malignant ($P(y=1) = 0.7$), there is a 30% chance it is not malignant ($P(y=0) = 0.3$).
+
+![](../../00-Attachments/Pasted%20image%2020261102101154.png)
 ---
+
 ## 4. Quiz Practice
-> [!question] What happens if \(z\) is a large negative number in the sigmoid function \(g(z) = \frac{1}{1+e^{-z}}\)?
+
+> [!question] What happens if $z$ is a large negative number in the sigmoid function $g(z) = \frac{1}{1+e^{-z}}$?
 > 
-> **Answer:** \(g(z)\) is near zero.
-> *Reasoning:* If \(z = -100\), then \(e^{-(-100)} = e^{100}\). This is a massive number, so the denominator becomes huge (\(1 + \text{huge}\)). Dividing \(1\) by a huge number gives a result extremely close to \(0\).
+> **Answer:** $g(z)$ is near zero.
+> *Reasoning:* If $z = -100$, then $e^{-(-100)} = e^{100}$. This is a massive number, so the denominator becomes huge ($1 + \text{huge}$). Dividing \(1\) by a huge number gives a result extremely close to \(0\).
+
+![](../../00-Attachments/Pasted%20image%2020261102101201.png)
