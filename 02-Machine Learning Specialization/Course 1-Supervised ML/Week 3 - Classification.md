@@ -515,3 +515,58 @@ The same concepts apply to Logistic Regression with Decision Boundaries.
 ## Next Steps
 *   How do we fix overfitting? (Coming up next: Regularization).
 *   How do we detect it? (Splitting data into Training and Test sets).
+
+# Addressing Overfitting
+
+## Overview
+When a model overfits (high variance), it memorizes the training data but fails on new data. There are three main ways to fix this. 
+
+![](../../00-Attachments/Pasted%20image%2020261106213706.png)
+
+![](../../00-Attachments/Pasted%20image%2020261106213722.png)
+
+![](../../00-Attachments/Pasted%20image%2020261106213733.png)
+
+---
+
+## 1. The Three Options
+
+![](../../00-Attachments/Pasted%20image%2020261106213743.png)
+
+### Option 1: Collect More Training Data
+*   **How it works:** If you feed the model more data points, it becomes much harder for it to fit a highly wiggly, complex curve. The wiggles get averaged out, and the model is forced to learn a smoother, more general pattern.
+*   **Limitation:** Collecting more data is often expensive, time-consuming, or simply impossible.
+
+### Option 2: Select Features (Feature Selection)
+*   **How it works:** If you have too many features (e.g., 100 features), the model might overfit. You can manually or algorithmically choose only a subset of the most relevant features and throw away the rest.
+*   **Example:** When predicting house prices, maybe you drop "distance to coffee shop" and only keep "size", "bedrooms", and "age".
+*   **Limitation:** You might accidentally throw away a feature that is actually useful. *(Note: The professor mentions that automated feature selection will be covered in Course 2).*
+
+### Option 3: Regularization (The Best Method)
+*   **How it works:** Instead of completely eliminating features, you keep all of them but **reduce the size of the parameters (\(w_j\))**. 
+*   **Why it works:** If a model has very large weights (e.g., \(w_3 = 385\)), that feature is having a massive impact, causing the curve to wiggle wildly. By shrinking the weights to be very small (close to zero), the model becomes smoother and less prone to overfitting.
+
+---
+
+## 2. Visualizing Regularization
+
+*   **Overfit Model:** The equation might look like this: 
+    `f(x) = 28x - 385x^2 + 391x^3 - 174x^4 + 100` 
+    *(Huge weights, very wiggly curve).*
+*   **Regularized Model:** The equation looks like this:
+    `f(x) = 13x - 0.23x^2 + 0.000014x^3 - 0.0001x^4 + 10`
+    *(Tiny weights for the higher-order polynomials, resulting in a much smoother curve that generalizes better).*
+
+> [!success] The Beauty of Regularization
+> By keeping all the features but penalizing large weights, you get the best of both worlds: the model can still use the complex features if they are truly useful, but it won't let them dominate and cause overfitting.
+
+---
+
+## 3. Quiz Practice
+
+> [!question] Applying regularization, increasing the number of training examples, or selecting a subset of the most relevant features are methods for...
+> 
+> **Answer:** **Addressing overfitting (high variance).**
+> *Reasoning:* All three methods help the model generalize better to new examples by preventing it from memorizing the training data.
+
+![](../../00-Attachments/Pasted%20image%2020261106213750.png)
