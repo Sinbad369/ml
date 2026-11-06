@@ -1120,3 +1120,62 @@ In professional code, you rarely use `for` loops in NumPy because they are slow.
 *   `w**2` squares every element in the weight array.
 *   `np.sum()` adds them all up.
 
+
+# Implementing the Regularized Gradient
+
+## Overview
+To train a regularized logistic regression model, we need to update the gradient calculation. The derivative of the regularization term `(lambda / 2m) * w^2` is simply `(lambda / m) * w`. We add this to the standard weight gradient.
+
+*(Note: The bias gradient `dj_db` does NOT change, because the bias is not regularized).*
+
+---
+
+## 1. The Mathematical Formula
+
+The regularized gradient for the weights (`w`) is:
+`dj_dw_j = [ Standard_Gradient ] + (lambda / m) * w_j`
+
+The gradient for the bias (`b`) remains:
+`dj_db = [ Standard_Gradient ]`
+
+---
+
+## 2. The Python Implementation
+
+The lab provides the standard gradients `dj_db, dj_dw = compute_gradient(...)`. We just need to loop through the weights and add the penalty.
+
+> [!success] The `compute_gradient_reg` Function
+> ```python
+> def compute_gradient_reg(X, y, w, b, lambda_ = 1): 
+>     m, n = X.shape
+>     
+>     # Get the standard gradients from the previous function
+>     dj_db, dj_dw = compute_gradient(X, y, w, b)
+> 
+>     # Add the regularization term to the weights
+>     for j in range(n):
+>         dj_dw[j] = dj_dw[j] + (lambda_ / m) * w[j]
+>         
+>     return dj_db, dj_dw
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`dj_db, dj_dw = compute_gradient(X, y, w, b)`**: We reuse the function we wrote in Exercise 3 to get the base gradients.
+2.  **`for j in range(n):`**: We loop through every weight.
+3.  **`dj_dw[j] = dj_dw[j] + (lambda_ / m) * w[j]`**: We add the penalty term to the existing gradient. Because `w[j]` is part of the equation, larger weights will get a larger penalty, forcing gradient descent to shrink them.
+4.  **Return:** We return the updated `dj_dw` and the unchanged `dj_db`.
+
+---
+
+## 4. The Vectorized "One-Liner"
+
+If you want to avoid the `for` loop entirely, you can use NumPy arrays:
+
+`dj_dw = dj_dw + (lambda_ / m) * w`
+
+Because `dj_dw` and `w` are both NumPy arrays of shape `(n,)`, this line automatically adds the penalty to every single weight simultaneously.
+
+
