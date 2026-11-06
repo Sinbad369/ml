@@ -812,3 +812,311 @@ The regularization parameter λ controls the penalty for having large weights.
 > Increasing the regularization parameter **reduces** the size of the parameters.
 
 ![](../../00-Attachments/Pasted%20image%2020261106223036.png)
+
+# Implementing the Sigmoid Function
+
+## Overview
+The sigmoid function is the core of Logistic Regression. It takes any real number (positive or negative, large or small) and squashes it into a value between 0 and 1, representing a probability.
+
+---
+
+## 1. The Mathematical Formula
+
+The sigmoid function is defined as:
+`g(z) = 1 / (1 + e^(-z))`
+
+Where:
+*   `z` is the linear equation: `z = w * x + b`
+*   `e` is Euler's number (approx 2.71828), the base of the natural logarithm.
+
+---
+
+## 2. The Python Implementation
+
+To implement this in Python, we use the **NumPy** library. 
+
+> [!success] The `sigmoid` Function
+> ```python
+> import numpy as np
+> 
+> def sigmoid(z):
+>     # Compute the sigmoid of z
+>     g = 1 / (1 + np.exp(-z))
+>     return g
+> ```
+
+---
+
+## 3. Why use `np.exp()` instead of `math.exp()`?
+
+The instructions specifically state that `z` can be a **scalar** (a single number) OR an **array** of numbers.
+
+*   **`math.exp()`** only works on single numbers (scalars). If you pass it an array, it will throw an error.
+*   **`np.exp()`** (NumPy) is *vectorized*. It can take an array of any size and apply the exponential function to every single element simultaneously. This makes it incredibly fast and allows us to process the whole dataset at once without using a `for` loop.
+
+---
+
+## 4. Testing the Output
+
+If your function is working correctly, it should produce these results:
+*   `sigmoid(0)` = `0.5` 
+    *(Because `e^0 = 1`, so `1 / (1+1) = 1/2 = 0.5`)*
+*   `sigmoid(100)` = very close to `1.0`
+    *(Because `e^-100` is practically `0`, so `1 / (1+0) = 1`)*
+*   `sigmoid(-100)` = very close to `0.0`
+    *(Because `e^100` is massive, so `1 / (1 + massive) = 0`)*
+
+If you pass an array like `[-1, 0, 1]`, it will return `[0.268, 0.5, 0.731]`.
+
+
+# Implementing the Logistic Cost Function
+
+## Overview
+This function calculates the average cost (loss) for all training examples using the Logistic Regression cost function. 
+
+---
+
+## 1. The Mathematical Formulas
+
+The total cost is the average of the losses for all `m` examples:
+`J(w,b) = (1/m) * sum( loss )`
+
+The loss for a single example is calculated using the log-loss formula:
+`loss = -y * log(f_wb(x)) - (1 - y) * log(1 - f_wb(x))`
+
+Where the prediction `f_wb(x)` is the sigmoid of `z`:
+`f_wb(x) = sigmoid(z)`
+`z = w * x + b`
+
+---
+
+## 2. The Python Implementation
+
+Because `X` is a matrix with `m` rows and `n` columns, we need to use `np.dot()` to handle the multiplication of the weight vector `w` with the feature vector `X[i]`.
+
+> [!success] The `compute_cost` Function
+> ```python
+> def compute_cost(X, y, w, b, *argv):
+>     m, n = X.shape
+>     total_cost = 0
+>     
+>     for i in range(m):
+>         # 1. Calculate z for the i-th example
+>         z_i = np.dot(w, X[i]) + b
+>         
+>         # 2. Get the prediction (sigmoid)
+>         f_wb_i = sigmoid(z_i)
+>         
+>         # 3. Calculate the loss for this example
+>         loss_i = -y[i] * np.log(f_wb_i) - (1 - y[i]) * np.log(1 - f_wb_i)
+>         
+>         # 4. Accumulate the loss
+>         total_cost += loss_i
+>         
+>     # 5. Average the cost
+>     total_cost = total_cost / m
+>     
+>     return total_cost
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`m, n = X.shape`**: Extracts the number of examples (`m`) and the number of features (`n`) from the dataset matrix.
+2.  **`for i in range(m):`**: Loops through every single row in the dataset.
+3.  **`np.dot(w, X[i])`**: This is the vectorized way to calculate `w0*x0 + w1*x1 + ... + wn*xn`. It is much faster and cleaner than writing a nested loop.
+4.  **`sigmoid(z_i)`**: Passes the linear combination through the sigmoid function to get a probability between 0 and 1.
+5.  **`np.log(...)`**: We use `np.log` instead of `math.log`. If the prediction is exactly 0 or 1, `math.log` will crash with a "Math Domain Error" (because log(0) is negative infinity). `np.log` will just return `-inf` (or a warning) without crashing the whole program, which is mathematically correct here.
+
+
+# Implementing the Logistic Gradient
+
+## Overview
+This function computes the gradients (partial derivatives) needed for Gradient Descent. It calculates how much we should adjust the weights (`w`) and bias (`b`) to minimize the cost function. 
+
+---
+
+## 1. The Mathematical Formulas
+
+**Gradient for bias (b):**
+`dj_db = (1/m) * sum( f_wb(x) - y )`
+
+**Gradient for weights (w_j):**
+`dj_dw_j = (1/m) * sum( (f_wb(x) - y) * x_j )`
+
+Where `f_wb(x)` is the sigmoid function: `sigmoid(w * x + b)`.
+
+---
+
+## 2. The Python Implementation
+
+The lab provides a nested loop structure. The outer loop goes through every training example (`i`), and the inner loop goes through every feature (`j`).
+
+> [!success] The `compute_gradient` Function
+> ```python
+> def compute_gradient(X, y, w, b, *argv): 
+>     m, n = X.shape
+>     dj_dw = np.zeros(w.shape)
+>     dj_db = 0.
+> 
+>     for i in range(m):
+>         z_wb = 0
+>         # Loop through all features to calculate w*x
+>         for j in range(n): 
+>             z_wb += w[j] * X[i, j]
+>         z_wb += b
+>         
+>         # The prediction
+>         f_wb = sigmoid(z_wb)
+>         
+>         # The error
+>         error = f_wb - y[i]
+>         
+>         # Accumulate bias gradient
+>         dj_db += error
+>         
+>         # Accumulate weight gradients
+>         for j in range(n):
+>             dj_dw[j] += error * X[i, j]
+>             
+>     # Average the gradients
+>     dj_dw = dj_dw / m
+>     dj_db = dj_db / m
+> 
+>     return dj_db, dj_dw
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`z_wb = 0`**: We initialize the linear combination for the current example.
+2.  **`z_wb += w[j] * X[i, j]`**: This calculates the dot product `w0*x0 + w1*x1 + ... + wn*xn` manually. `X[i, j]` gets the `j`-th feature of the `i`-th example.
+3.  **`z_wb += b`**: Add the bias.
+4.  **`f_wb = sigmoid(z_wb)`**: Get the probability prediction.
+5.  **`error = f_wb - y[i]`**: This is the difference between the prediction and the actual label. 
+6.  **`dj_dw[j] += error * X[i, j]`**: For the weights, we multiply the error by the feature value. This is because if a feature is large, it had a bigger impact on the error, so its weight should be adjusted more.
+7.  **`dj_dw = dj_dw / m`**: We divide by `m` **outside the loop** to get the average gradient across all examples.
+   
+   
+   # Implementing the Predict Function
+
+## Overview
+The `predict` function takes the learned parameters (weights `w` and bias `b`) and a dataset `X`, and outputs a final classification (0 or 1) for each example.
+
+---
+
+## 1. The Logic
+
+To make a prediction for a single example, we follow three steps:
+1.  **Calculate \(z\):** `z = w * x + b` (the linear combination).
+2.  **Calculate \(f(x)\):** Pass \(z\) through the sigmoid function to get a probability between 0 and 1.
+3.  **Apply the Threshold:** 
+    *   If the probability is **>= 0.5**, predict **1**.
+    *   If the probability is **< 0.5**, predict **0**.
+
+---
+
+## 2. The Python Implementation
+
+> [!success] The `predict` Function
+> ```python
+> def predict(X, w, b): 
+>     m, n = X.shape   
+>     p = np.zeros(m)
+>    
+>     for i in range(m):   
+>         z_wb = 0
+>         for j in range(n): 
+>             z_wb += w[j] * X[i, j]
+>         
+>         z_wb += b
+>         
+>         f_wb = sigmoid(z_wb)
+> 
+>         # Apply the threshold
+>         if f_wb >= 0.5:
+>             p[i] = 1
+>         else:
+>             p[i] = 0
+>         
+>     return p
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`z_wb = 0`**: Initialize the sum for the current example.
+2.  **`z_wb += w[j] * X[i, j]`**: Accumulate the product of each weight and its corresponding feature.
+3.  **`z_wb += b`**: Add the bias term.
+4.  **`f_wb = sigmoid(z_wb)`**: Get the probability using the sigmoid function you wrote in Exercise 1.
+5.  **`if f_wb >= 0.5:`**: This is the threshold. We are converting the continuous probability (e.g., 0.73) into a discrete class (1). 
+6.  **`p[i] = 1`**: Store the final prediction in the output array `p`.
+
+
+# Implementing the Regularized Cost Function
+
+## Overview
+When applying regularization, we take the standard Logistic Regression cost and add a penalty term. This penalty discourages the model from making the weights (`w`) too large, which helps prevent overfitting.
+
+---
+
+## 1. The Mathematical Formula
+
+The total cost with regularization is:
+`J(w,b) = Cost_without_reg + Regularization_Term`
+
+The Regularization Term is:
+`(lambda / 2m) * sum( w_j^2 )`
+
+*(Note: It sums the squared weights from `j=0` to `n-1`. The bias `b` is NOT included).*
+
+---
+
+## 2. The Python Implementation
+
+The lab provides the unregularized cost `compute_cost(X, y, w, b)`. We just need to calculate `reg_cost`.
+
+> [!success] The `compute_cost_reg` Function
+> ```python
+> def compute_cost_reg(X, y, w, b, lambda_ = 1):
+>     m, n = X.shape
+>     
+>     cost_without_reg = compute_cost(X, y, w, b) 
+>     
+>     reg_cost = 0.
+>     
+>     # Loop through all weights
+>     for j in range(n):
+>         reg_cost += (w[j]**2)
+>     
+>     # Multiply by lambda / 2m
+>     reg_cost = (lambda_ / (2 * m)) * reg_cost
+>     
+>     total_cost = cost_without_reg + reg_cost
+> 
+>     return total_cost
+> ```
+
+---
+
+## 3. Step-by-Step Breakdown
+
+1.  **`for j in range(n):`**: Loops through every feature weight.
+2.  **`reg_cost += (w[j]**2)`**: Squares each weight and adds it to the running total. 
+3.  **`reg_cost = (lambda_ / (2 * m)) * reg_cost`**: Once we have the sum of squares, we multiply the whole thing by the regularization parameter `lambda_` divided by `2m`.
+4.  **`total_cost = ...`**: Finally, we add the penalty to the original unregularized cost.
+
+---
+
+## 4. The Vectorized "One-Liner"
+
+In professional code, you rarely use `for` loops in NumPy because they are slow. The exact same math can be done in one line using vectorization:
+
+`reg_cost = (lambda_ / (2 * m)) * np.sum(w**2)`
+
+*   `w**2` squares every element in the weight array.
+*   `np.sum()` adds them all up.
+
