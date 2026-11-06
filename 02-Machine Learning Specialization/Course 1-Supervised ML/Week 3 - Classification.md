@@ -777,3 +777,38 @@ In the programming assignments, you will often see this coded using `scikit-lear
 
 
 ![](../../00-Attachments/Pasted%20image%2020261106222436.png)
+
+# Quiz Review: The Problem of Overfitting
+
+## 1. Methods to Address Overfitting
+When a model overfits (high variance), it memorizes the training data and fails to generalize. The valid methods to fix this are:
+*   **Collect more training data:** Forces the model to learn general patterns rather than memorizing noise.
+*   **Apply regularization:** Shrinks the parameters to make the model simpler.
+*   **Select a subset of features:** Removes irrelevant features that might be causing the model to overcomplicate itself.
+
+*(Note: You should never just "remove a random set of training examples"—you need all the data you can get!)*
+![](../../00-Attachments/Pasted%20image%2020261106222955.png)
+---
+
+## 2. Diagnosing Overfitting vs. Underfitting
+Look at the decision boundary:
+*   **Overfitting (High Variance):** The boundary is wildly complex and wiggly, trying to perfectly separate every single point (including outliers). 
+*   **Underfitting (High Bias):** The boundary is too simple (e.g., a straight line) and fails to capture the shape of the data.
+
+> [!tip] Does adding data help?
+> *   If the model is **overfitting** (high variance), adding more data **will help** smooth out the curve and improve generalization.
+> *   If the model is **underfitting** (high bias), adding more data will **not help** because the model is already too simple (you need more features or a more complex model).
+
+![](../../00-Attachments/Pasted%20image%2020261106223015.png)
+---
+
+## 3. The Effect of Lambda (λ)
+The regularization parameter λ controls the penalty for having large weights.
+
+*   **Increase λ:** Increases the penalty. Gradient descent will shrink the parameters (w1, w2, ..., wn) to be closer to zero.
+*   **Decrease λ:** Decreases the penalty. The model is allowed to have larger weights (closer to standard linear regression), which increases the risk of overfitting.
+
+> [!warning] Remember
+> Increasing the regularization parameter **reduces** the size of the parameters.
+
+![](../../00-Attachments/Pasted%20image%2020261106223036.png)
