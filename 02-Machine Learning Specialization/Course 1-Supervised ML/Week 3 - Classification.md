@@ -639,3 +639,61 @@ Shrinking the bias (b) just shifts the entire curve up or down. It doesn't chang
 
 ![](../../00-Attachments/Pasted%20image%2020261106215256.png)
 
+
+# Regularized Linear Regression
+
+## Overview
+Now that we have added the regularization term to our cost function, we need to update our Gradient Descent algorithm to minimize this new cost. The good news is that the update rules barely change; we just add one small extra term.
+![](../../00-Attachments/Pasted%20image%2020261106220905.png)
+---
+
+## 1. The New Cost Function
+
+We are trying to minimize:
+`J(w,b) = [ (1/2m) * sum( (f_wb(x) - y)^2 ) ] + [ (lambda / 2m) * sum( w^2 ) ]`
+
+*(Note: The first term is the Mean Squared Error. The second term is the Regularization penalty).*
+
+---
+
+## 2. The Gradient Descent Update Rules
+
+To find the minimum, we take the derivative of the new cost function. Because the derivative of `w^2` is `2w`, the `2` cancels out the `2` in the denominator.
+
+**The new update rule for weights (w_j):**
+`w_j = w_j - alpha * [ (1/m) * sum( (f_wb(x) - y) * x_j ) + (lambda / m) * w_j ]`
+
+**The new update rule for bias (b):**
+`b = b - alpha * (1/m) * sum( f_wb(x) - y )`
+
+> [!important] Crucial Detail
+> Notice that the bias term `b` **does not have a regularization term** added to it. By convention, we only penalize the weights (`w`), not the bias.
+
+---
+
+## 3. Understanding the "Shrinkage" Effect
+
+The professor shows a clever way to rewrite the update rule for `w_j` to help us understand *why* regularization works.
+
+If we factor out `w_j` from the equation, it looks like this:
+`w_j = w_j * (1 - alpha * (lambda / m)) - alpha * (1/m) * sum( (f_wb(x) - y) * x_j )`
+
+Let's break down the two parts:
+
+1.  **The "Shrink" Part:** `w_j * (1 - alpha * (lambda / m))`
+    *   Because `alpha`, `lambda`, and `m` are all positive, the term `(1 - alpha * (lambda / m))` is slightly less than 1 (e.g., 0.9998).
+    *   Multiplying `w_j` by a number less than 1 makes `w_j` slightly smaller on every single iteration. This is why regularization is sometimes called **"shrinkage"**.
+2.  **The "Normal Update" Part:** `- alpha * (1/m) * sum(...)`
+    *   This is the standard gradient descent update we already know, which tries to fit the data.
+
+**The Result:** Every iteration, the weight is shrunk slightly, and then updated to fit the data. The regularization term fights against the data-fitting term to keep the weights small!
+
+---
+
+## 4. Quiz Practice
+
+> [!question] Assuming alpha is a small number (0.001), lambda is 1, and m is 50, what is the effect of the new part `(1 - alpha * (lambda/m))` on updating w_j?
+> 
+> **Answer:** **The new part decreases the value of w_j each iteration by a little bit.**
+> *Reasoning:* The calculation is `(1 - 0.001 * (1/50)) = (1 - 0.00002) = 0.99998`. Multiplying `w_j` by 0.99998 shrinks it slightly on every iteration.
+
