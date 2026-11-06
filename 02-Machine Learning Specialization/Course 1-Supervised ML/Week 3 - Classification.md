@@ -570,3 +570,72 @@ When a model overfits (high variance), it memorizes the training data but fails 
 > *Reasoning:* All three methods help the model generalize better to new examples by preventing it from memorizing the training data.
 
 ![](../../00-Attachments/Pasted%20image%2020261106213750.png)
+
+
+# Cost Function with Regularization
+
+## Overview
+We previously learned that **Regularization** works by shrinking the parameters (w) so the model becomes simpler and less likely to overfit. This note explains exactly *how* we modify the cost function to force the model to learn smaller weights.
+
+---
+
+## 1. The Intuition
+
+Imagine a model with polynomial features:
+`f(x) = w1*x + w2*x^2 + w3*x^3 + w4*x^4 + b`
+
+*   If the model is overfitting, it's because the higher-order terms (`w3*x^3`, `w4*x^4`) are creating wild wiggles in the curve.
+*   To fix this, we want to make **w3 and w4 really small (close to 0)**. 
+*   If `w3` and `w4` are close to 0, the terms `x^3` and `x^4` have almost no effect. The model essentially becomes a simpler quadratic curve (`w1*x + w2*x^2 + b`), which is less likely to overfit.
+
+**How do we force the weights to be small?** We add a penalty to the cost function for having large weights!
+
+![](../../00-Attachments/Pasted%20image%2020261106215231.png)
+---
+
+## 2. The New Cost Function
+
+We take the original Mean Squared Error cost function and add a **Regularization Term** to the end.
+
+**Formula:**
+`J(w,b) = [ (1/2m) * sum( (f_wb(x) - y)^2 ) ] + [ (lambda / 2m) * sum( w^2 ) ]`
+
+*(Note: The sum on the right includes all the weights `w`, but does NOT include the bias `b`).*
+
+### The Lambda Parameter (λ)
+*   λ (lambda) is the **Regularization Parameter**.
+*   It is a number greater than 0 (λ > 0).
+*   It controls the trade-off between fitting the data and keeping the weights small.
+![](../../00-Attachments/Pasted%20image%2020261106215240.png)
+---
+
+## 3. The Balance (Trade-off)
+
+The new cost function has two competing goals:
+
+1.  **Fit the data well:** Minimizing the first term (Mean Squared Error) encourages the model to fit the training data perfectly.
+2.  **Keep parameters small:** Minimizing the second term (Regularization Term) penalizes the model if the weights get too large.
+
+**How λ changes the balance:**
+*   **If λ = 0:** The regularization term disappears. You are back to standard linear regression, which might overfit.
+*   **If λ is too large (e.g., 10^10):** The penalty is so massive that gradient descent will shrink all the weights to be almost zero (w1, w2, w3, w4 ≈ 0). The model just becomes `f(x) = b` (a flat horizontal line), which is **underfitting**.
+*   **If λ is "just right":** It shrinks the weights just enough to smooth out the curve, giving you a model that generalizes well.
+
+---
+
+## 4. Why don't we regularize the bias (b)?
+
+By convention, we only penalize the weights (w). 
+Shrinking the bias (b) just shifts the entire curve up or down. It doesn't change the "wiggliness" or complexity of the curve. Therefore, there is no need to penalize it.
+![](../../00-Attachments/Pasted%20image%2020261106215251.png)
+---
+
+## 5. Quiz Practice
+
+> [!question] For a model that includes the regularization parameter λ (lambda), increasing λ will tend to...
+> 
+> **Answer:** **Decrease the size of parameters w1, w2, ... wn.**
+> *Reasoning:* A larger penalty encourages the algorithm to shrink the weights to minimize the overall cost.
+
+![](../../00-Attachments/Pasted%20image%2020261106215256.png)
+
