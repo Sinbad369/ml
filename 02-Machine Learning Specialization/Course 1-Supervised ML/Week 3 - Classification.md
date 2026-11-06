@@ -702,3 +702,78 @@ Let's break down the two parts:
 
 ![](../../00-Attachments/Pasted%20image%2020261106220937.png)
 ![](../../00-Attachments/Pasted%20image%2020261106220943.png)
+
+# Regularized Logistic Regression
+
+## Overview
+Just like with Linear Regression, Logistic Regression can overfit if it has too many complex polynomial features. We fix this by adding a **Regularization Term** to the cost function. This shrinks the weights and makes the decision boundary smoother.
+
+![](../../00-Attachments/Pasted%20image%2020261106222414.png)
+---
+
+## 1. The Regularized Cost Function
+
+We take the standard Logistic Regression cost function (the log-loss function) and add the regularization penalty to the end.
+
+**Formula:**
+`J(w,b) = [ - (1/m) * sum( y*log(f_wb(x)) + (1-y)*log(1-f_wb(x)) ) ] + [ (lambda / 2m) * sum( w^2 ) ]`
+
+*   The first bracket is the standard logistic loss (fits the data).
+*   The second bracket is the **Regularization Term** (keeps weights small).
+*   The sum for the regularization term goes from `j=1` to `n` (it does not include the bias `b`).
+
+---
+
+## 2. The Gradient Descent Update Rules
+
+To train the model, we use gradient descent. We take the derivative of the new cost function.
+
+**For the weights (w_j):**
+`w_j = w_j - alpha * [ (1/m) * sum( (f_wb(x) - y) * x_j ) + (lambda / m) * w_j ]`
+
+**For the bias (b):**
+`b = b - alpha * (1/m) * sum( f_wb(x) - y )`
+
+> [!important] The Only Difference
+> If you look closely, these update rules look **exactly the same** as the regularized linear regression update rules.
+> 
+> The only difference is what `f_wb(x)` is:
+> *   **Linear Regression:** `f_wb(x) = w*x + b`
+> *   **Logistic Regression:** `f_wb(x) = 1 / (1 + e^-(w*x + b))` (The Sigmoid function)
+
+![](../../00-Attachments/Pasted%20image%2020261106222429.png)
+---
+
+## 3. Why does this work?
+
+In the first screenshot, you can see a highly overfit decision boundary (the wiggly purple line). It is trying too hard to separate every single red 'x' and blue 'o'.
+
+When we minimize this new cost function:
+1.  Gradient descent wants to fit the data (first term).
+2.  Gradient descent wants to keep the weights (w) as small as possible (second term).
+
+By shrinking the weights, the higher-order polynomial features (like `x^3` or `x^4`) have less impact. The decision boundary becomes smoother and simpler, which means it will generalize better to new examples.
+
+---
+
+## 4. Implementation Details
+
+In the programming assignments, you will often see this coded using `scikit-learn` or raw NumPy. 
+
+> [!tip] Scikit-Learn Tip
+> If you use Scikit-Learn's `LogisticRegression`, the regularization strength is controlled by the parameter `C`. 
+> *   `C` is the **inverse** of regularization strength. 
+> *   A smaller `C` means stronger regularization (equivalent to a larger lambda).
+> *   A larger `C` means weaker regularization (equivalent to a smaller lambda).
+
+---
+
+## 5. Quiz Practice
+
+> [!question] For regularized **logistic** regression, how do the gradient descent update steps compare to the steps for linear regression?
+> 
+> **Answer:** **They look very similar, but the f(x) is not the same.**
+> *Reasoning:* The mathematical structure of the derivatives is identical, but the prediction function `f(x)` uses the sigmoid curve for logistic regression, and a straight line for linear regression.
+
+
+![](../../00-Attachments/Pasted%20image%2020261106222436.png)
