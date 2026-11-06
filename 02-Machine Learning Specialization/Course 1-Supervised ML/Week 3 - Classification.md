@@ -645,6 +645,8 @@ Shrinking the bias (b) just shifts the entire curve up or down. It doesn't chang
 ## Overview
 Now that we have added the regularization term to our cost function, we need to update our Gradient Descent algorithm to minimize this new cost. The good news is that the update rules barely change; we just add one small extra term.
 ![](../../00-Attachments/Pasted%20image%2020261106220905.png)
+
+![](../../00-Attachments/Pasted%20image%2020261106220915.png)
 ---
 
 ## 1. The New Cost Function
@@ -669,6 +671,7 @@ To find the minimum, we take the derivative of the new cost function. Because th
 > [!important] Crucial Detail
 > Notice that the bias term `b` **does not have a regularization term** added to it. By convention, we only penalize the weights (`w`), not the bias.
 
+![](../../00-Attachments/Pasted%20image%2020261106220924.png)
 ---
 
 ## 3. Understanding the "Shrinkage" Effect
@@ -687,7 +690,7 @@ Let's break down the two parts:
     *   This is the standard gradient descent update we already know, which tries to fit the data.
 
 **The Result:** Every iteration, the weight is shrunk slightly, and then updated to fit the data. The regularization term fights against the data-fitting term to keep the weights small!
-
+![](../../00-Attachments/Pasted%20image%2020261106220932.png)
 ---
 
 ## 4. Quiz Practice
@@ -697,3 +700,5 @@ Let's break down the two parts:
 > **Answer:** **The new part decreases the value of w_j each iteration by a little bit.**
 > *Reasoning:* The calculation is `(1 - 0.001 * (1/50)) = (1 - 0.00002) = 0.99998`. Multiplying `w_j` by 0.99998 shrinks it slightly on every iteration.
 
+![](../../00-Attachments/Pasted%20image%2020261106220937.png)
+![](../../00-Attachments/Pasted%20image%2020261106220943.png)
