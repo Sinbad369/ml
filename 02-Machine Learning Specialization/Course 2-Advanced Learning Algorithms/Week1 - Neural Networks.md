@@ -40,3 +40,65 @@ Look at the graph comparing "Traditional AI" to Neural Networks:
 > For traditional algorithms, throwing more data at the problem eventually stops helping. For large neural networks, **more data + more compute = better performance**. This is why deep learning has exploded in the last decade.
 
 ![](../../00-Attachments/Pasted%20image%2020261114235153.png)
+
+
+# Demand Prediction (Neural Network Example)
+
+## Overview
+This note introduces the fundamental building blocks of a Neural Network using a real-world example: predicting whether a t-shirt will be a "top seller" based on various factors.
+![](../../00-Attachments/Pasted%20image%2020261115000438.png)
+---
+
+## 1. The Single Neuron (Logistic Regression)
+
+Before building a network, we start with a single neuron. 
+Imagine we only have one input feature: `price`.
+
+*   **Input (x):** Price of the shirt.
+*   **Output (a):** Probability of being a top seller (between 0 and 1).
+*   **Activation:** The output is calculated using the **Sigmoid function** (which is just Logistic Regression).
+    `a = sigmoid(w * x + b)`
+
+If the price is low, the probability of being a top seller is high (the curve is high on the left). If the price is high, the probability is low.
+![](../../00-Attachments/Pasted%20image%2020261115000445.png)
+![](../../00-Attachments/Pasted%20image%2020261115000507.png)
+---
+
+## 2. Building a Layer (Multiple Neurons)
+
+In reality, "price" alone doesn't determine if a shirt sells well. We have multiple inputs:
+`x = [price, shipping_cost, marketing, material]`
+
+Instead of feeding all these directly into the final output, a neural network creates a **Hidden Layer**. The neurons in this layer try to learn intermediate concepts:
+*   **Neuron 1:** Learns "Affordability" (based on price and shipping).
+*   **Neuron 2:** Learns "Awareness" (based on marketing budget).
+*   **Neuron 3:** Learns "Perceived Quality" (based on material and price).
+
+> [!info] Terminology
+> *   **Input Layer:** The raw data (`x`). (4 numbers)
+> *   **Hidden Layer:** The intermediate calculations. (3 numbers, called **Activations**)
+> *   **Output Layer:** The final prediction. (1 number)
+
+The output layer takes the three activations from the hidden layer and combines them to make the final prediction: "Probability of being a top seller."
+![](../../00-Attachments/Pasted%20image%2020261115000520.png)
+---
+
+## 3. Feature Engineering vs. Neural Networks
+
+*   **Manual Feature Engineering:** In traditional ML, a human has to manually create features (e.g., `x3 = x1 * x2`).
+*   **Neural Networks:** You don't have to manually engineer features! You just feed the raw inputs into the hidden layer, and the network *learns* the best intermediate features (like "affordability") on its own during training. 
+
+---
+
+## 4. Multiple Hidden Layers (Deep Learning)
+
+A neural network can have many hidden layers. Each layer builds on the previous one to learn more complex patterns.
+
+*   **1st Hidden Layer:** Learns simple features (e.g., edges, shapes, or basic affordability).
+*   **2nd Hidden Layer:** Combines simple features into more complex ones.
+*   **3rd Hidden Layer:** Combines those into even more complex concepts.
+
+> [!note] Neural Network Architecture
+> The way you choose to connect the neurons (how many layers, how many neurons per layer) is called the **Architecture**. A network with multiple hidden layers is called a **Multilayer Perceptron (MLP)** or a **Deep Neural Network**.
+
+![](../../00-Attachments/Pasted%20image%2020261115000532.png)
