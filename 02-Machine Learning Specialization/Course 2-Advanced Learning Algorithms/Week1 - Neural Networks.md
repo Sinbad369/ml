@@ -39,3 +39,4 @@ Look at the graph comparing "Traditional AI" to Neural Networks:
 > [!important] The Key Takeaway
 > For traditional algorithms, throwing more data at the problem eventually stops helping. For large neural networks, **more data + more compute = better performance**. This is why deep learning has exploded in the last decade.
 
+![](../../00-Attachments/Pasted%20image%2020261114235153.png)
