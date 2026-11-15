@@ -102,3 +102,54 @@ A neural network can have many hidden layers. Each layer builds on the previous 
 > The way you choose to connect the neurons (how many layers, how many neurons per layer) is called the **Architecture**. A network with multiple hidden layers is called a **Multilayer Perceptron (MLP)** or a **Deep Neural Network**.
 
 ![](../../00-Attachments/Pasted%20image%2020261115000532.png)
+
+# Example: Recognizing Images
+
+## Overview
+This note explores how Neural Networks process complex, high-dimensional data like images. It demonstrates how early layers detect simple patterns (like edges) while deeper layers combine those patterns to detect complex objects (like faces or cars).
+
+---
+
+## 1. How Images become Input (x)
+
+To a computer, a black-and-white image is just a grid (matrix) of pixel intensity values (ranging from 0 to 255).
+
+*   **The Matrix:** A 1000x1000 pixel image has 1 million pixels.
+*   **The Input Vector:** We "unroll" this 2D grid into a massive 1D column vector, `x`.
+    *   If the image has 1 million pixels, the vector `x` has 1 million features.
+*   **The Goal:** The neural network takes this massive vector and outputs a probability (e.g., "What is the probability this is person XYZ?").
+![](../../00-Attachments/Pasted%20image%2020261115001259.png)
+---
+
+## 2. How Neural Networks "See" (Hierarchical Learning)
+
+When you train a neural network on images, it automatically learns to break the problem down into layers of complexity:
+
+*   **1st Hidden Layer (Simple Features):** The neurons learn to detect very small, simple patterns like **edges** and **lines** at different orientations.
+*   **2nd Hidden Layer (Intermediate Features):** The neurons combine the edges from the first layer to detect parts of objects, like **eyes, noses, or corners of a car**.
+*   **3rd Hidden Layer (High-Level Features):** The neurons combine the parts to detect whole objects, like a **full face** or a **car body**.
+
+> [!important] The Power of Deep Learning
+> **Activations are higher-level features.** 
+> You don't have to manually tell the network to look for eyes or edges. It figures out the best features to extract on its own through the hidden layers.
+
+![](../../00-Attachments/Pasted%20image%2020261115001306.png)
+---
+
+## 3. Visualizing the Layers
+
+In the images provided:
+*   **Face Recognition:** Layer 1 looks like static (just edges). Layer 2 starts showing blurry eyes and noses. Layer 3 shows complete, recognizable faces.
+*   **Car Classification:** Layer 1 detects edges. Layer 2 detects wheels, windows, and bumpers. Layer 3 detects the full shape of the car.
+
+The final **Output Layer** takes these high-level features and calculates the probability of the image containing a specific face or object.
+
+![](../../00-Attachments/Pasted%20image%2020261115001313.png)
+---
+
+## 4. Why This is Amazing
+Before deep learning, computer vision required humans to manually write code to find edges, corners, and shapes. Neural networks changed everything by automatically learning these "hierarchical representations" directly from the raw pixel data.
+
+![](../../00-Attachments/Pasted%20image%2020261115001421.png)
+
+![](../../00-Attachments/Pasted%20image%2020261115001436.png)
