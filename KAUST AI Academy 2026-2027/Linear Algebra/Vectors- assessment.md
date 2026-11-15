@@ -344,3 +344,70 @@ When multiplying a vector by a scalar `c` (i.e., `cu`):
 Look at the scalar: `c = -3`.
 *   **Length:** `| -3 | = 3`. The vector is three times as long.
 *   **Direction:** The negative sign means it points in the opposite direction.
+
+# Linear Algebra: Dot Product and Distance
+
+## Question 1
+**A simple model predicts y = wᵀx + b. What is b?**
+*   ○ The weight that multiplies the first feature
+*   ● The bias term, added to the weighted sum of the features
+*   ○ The predicted output of the model
+*   ○ The vector of input features
+
+---
+
+## Rule
+*   **Linear Equation:** In a linear model, `y = wᵀx + b`.
+*   **wᵀx:** The dot product (weighted sum) of the feature vector `x` and weight vector `w`.
+*   **b:** The **bias** (or intercept). It is a scalar value added to the weighted sum, allowing the model to shift up or down even when all features are zero.
+
+---
+
+## Solution
+The equation is composed of two parts:
+1.  `wᵀx`: The weighted sum of features.
+2.  `b`: The bias term.
+
+Therefore, `b` is the bias term added to the weighted sum.
+
+## Question 2
+**A vector u has ||u|| = 3. For which values of c is ||cu|| = 6?**
+*   ● c = 2 or c = -2
+*   ○ c = 4 or c = -4
+*   ○ c = 1/2 or c = -1/2
+*   ○ Only c = 2
+---
+## Rule
+*   **Scalar Multiplication and Norms:** When you multiply a vector by a scalar `c`, the new length (norm) is multiplied by the absolute value of `c`.
+*   **Formula:** `||cu|| = |c| * ||u||`
+---
+## Solution
+1.  We know `||u|| = 3` and we want `||cu|| = 6`.
+2.  Substitute into the formula: `|c| * 3 = 6`.
+3.  Solve for `|c|`: `|c| = 2`.
+4.  Since `|c| = 2`, the scalar `c` can be either **2** or **-2**. 
+*(Note: A negative scalar stretches the vector by that amount but flips its direction, so the length is still positive).*
+
+
+  
+## Question 3
+**What is the unit vector in the direction of x = (0, -5, 12)?**
+*   ○ (0, 5/13, 12/13)
+*   ○ (0, -5/17, 12/17)
+*   ○ (0, -5/169, 12/169)
+*   ● (0, -5/13, 12/13)
+---
+## Rule
+*   **Unit Vector:** A vector with a length (magnitude) of 1. 
+*   **How to find it:** Divide the vector by its magnitude (norm). 
+*   **Formula:** `u = x / ||x||`
+---
+## Solution
+1.  **Find the magnitude:** 
+    `||x|| = sqrt(0^2 + (-5)^2 + 12^2)`
+    `||x|| = sqrt(0 + 25 + 144)`
+    `||x|| = sqrt(169) = 13`
+2.  **Divide each component by the magnitude:**
+    `u = (0/13, -5/13, 12/13)`
+    `u = (0, -5/13, 12/13)`
+*(Note: The option selected in the screenshot had 17 in the denominator, which is incorrect).*
