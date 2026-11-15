@@ -411,3 +411,181 @@ Therefore, `b` is the bias term added to the weighted sum.
     `u = (0/13, -5/13, 12/13)`
     `u = (0, -5/13, 12/13)`
 *(Note: The option selected in the screenshot had 17 in the denominator, which is incorrect).*
+
+
+## Question 4 - Vector Transpose
+**Let u = [2, 5, -1] (as a column vector). What is uᵀ?**
+*   ○ [-2 -5 1]
+*   ○ [-1 5 2]
+*   ● [2 5 -1] (as a row vector)
+*   ○ The number 30
+---
+## Rule
+*   **Transpose (ᵀ):** The transpose operation flips a matrix or vector over its diagonal.
+*   **Column to Row:** A column vector (shape `n x 1`) becomes a row vector (shape `1 x n`) when transposed.
+*   **Order:** The order of the elements does **not** change. The top element stays first, the bottom element stays last.
+---
+## Solution
+Given the column vector:
+`u = [2, 5, -1]` (written vertically)
+Transposing it makes it horizontal:
+`uᵀ = [2 5 -1]` (written horizontally)
+*(Note: The number 30 would be the dot product `uᵀu`, not the transpose itself).*
+
+
+# Linear Algebra: Norm and Scalar Multiplication
+
+## Question 5
+**A vector u has ||u|| = 4. What is ||-3u||?**
+*   ○ 4
+*   ○ 36
+*   ● 12
+*   ○ -12
+
+---
+
+## Rule
+*   **Scaling Norms:** When you multiply a vector by a scalar `c`, the new norm (length) is multiplied by the absolute value of `c`.
+*   **Formula:** `||cu|| = |c| * ||u||`
+*   **Key Concept:** The norm (length) of a vector is always non-negative. It can never be negative, even if the vector points in the negative direction.
+
+---
+
+## Solution
+1.  Identify the scalar: `c = -3`.
+2.  Take the absolute value of the scalar: `|-3| = 3`.
+3.  Multiply by the original norm: `3 * ||u|| = 3 * 4 = 12`.
+
+Therefore, `||-3u|| = 12`.
+
+## Question 6 - Dot Product of Vectors
+![](../../00-Attachments/Pasted%20image%2020261116021525.png)
+**For u = [-1, 4, 2] and v = [3, 1, -2], what is uᵀv?**
+*   ○ 11
+*   ○ 3
+*   ● -3
+*   ○ [-3 4 -4]
+
+---
+
+## Rule
+*   **Dot Product (uᵀv):** Multiplying a row vector (`uᵀ`) by a column vector (`v`) results in a single scalar number.
+*   **How to calculate:** Multiply the corresponding entries of each vector and sum the results.
+*   **Formula:** `(u1 * v1) + (u2 * v2) + (u3 * v3)`
+
+---
+
+## Solution
+Multiply the x, y, and z components together and add them:
+
+1.  First component: `-1 * 3 = -3`
+2.  Second component: `4 * 1 = 4`
+3.  Third component: `2 * -2 = -4`
+
+Add them up: 
+`-3 + 4 + (-4) = -3`
+
+*(Note: The last option `[-3 4 -4]` is the result of element-wise multiplication, not the dot product).*
+
+
+
+## Question 7 - Cosine Similarity vs. Euclidean Distance
+**A query q = (1, 1) is compared with candidates a = (2, 0) and b = (3, 3). Using cosine similarity, which candidate is closest in direction to q?**
+*   ● b, with cosine similarity 1, against about 0.71 for a
+*   ○ a, since its cosine similarity with q is the larger one
+*   ○ a, since ||q - a|| is smaller than ||q - b||
+*   ○ Neither; both have the same cosine similarity with q
+
+---
+
+## Rule
+*   **Cosine Similarity:** Measures the **angle** between two vectors, ignoring their magnitude (length). It is calculated as `(u · v) / (||u|| * ||v||)`.
+    *   Value of 1: Vectors point in the exact same direction.
+    *   Value of 0: Vectors are perpendicular (90 degrees).
+    *   Value of -1: Vectors point in exact opposite directions.
+*   **Euclidean Distance (||q - a||):** Measures the straight-line distance between the tips of the vectors. It cares about both direction AND magnitude.
+
+---
+
+## Solution
+The question specifically asks for the closest **in direction** using **cosine similarity**. This means we ignore how far apart the points are.
+
+1.  **Compare q and b:** 
+    *   `q = (1, 1)` and `b = (3, 3)`. 
+    *   Vector `b` is just `3 * q`. Because they are scalar multiples, they point in the exact same direction. 
+    *   Angle = 0°, **Cosine Similarity = 1**.
+2.  **Compare q and a:**
+    *   `q = (1, 1)` (45 degrees) and `a = (2, 0)` (0 degrees).
+    *   There is a 45° angle between them.
+    *   **Cosine Similarity = cos(45°) ≈ 0.71**.
+
+*(Note: The option "a, since ||q - a|| is smaller..." is a trap. It uses Euclidean distance, which is not what the question asked for).*
+
+### Deep Dive: Calculating the 0.71 Cosine Similarity
+
+To understand why the similarity between `q` and `a` is 0.71, we use the cosine similarity formula:
+`cos(θ) = (u · v) / (||u|| * ||v||)`
+
+**1. Dot Product (q · a):**
+`(1 * 2) + (1 * 0) = 2`
+
+**2. Magnitude of q (||q||):**
+`sqrt(1² + 1²) = sqrt(2) ≈ 1.414`
+
+**3. Magnitude of a (||a||):**
+`sqrt(2² + 0²) = sqrt(4) = 2`
+
+**4. Calculate Cosine:**
+`cos(θ) = 2 / (1.414 * 2) = 2 / 2.828 ≈ 0.71`
+
+**Geometric Explanation:**
+*   Vector `a = (2, 0)` lies flat on the x-axis (0°).
+*   Vector `q = (1, 1)` goes diagonally up and right, forming a 45° angle with the x-axis.
+*   The angle between them is 45°. The cosine of 45° is exactly `sqrt(2)/2`, which is approximately 0.707.
+
+## Question 8 - Calculating the Dot Product
+**For u = (2, -1, 3) and v = (4, 0, -2), what is u · v?**
+*   ○ (8, 0, -6)
+*   ○ -2
+*   ● 2
+*   ○ 14
+
+---
+
+## Rule
+*   **Dot Product:** The dot product of two vectors of the same size results in a single scalar (a number, not a vector).
+*   **Formula:** Multiply corresponding components and add the results.
+    `u · v = (u1 * v1) + (u2 * v2) + (u3 * v3)`
+
+---
+
+## Solution
+1.  Multiply the x-components: `2 * 4 = 8`
+2.  Multiply the y-components: `-1 * 0 = 0`
+3.  Multiply the z-components: `3 * -2 = -6`
+
+Add them all together:
+`8 + 0 + (-6) = 2`
+
+*(Note: The option (8, 0, -6) is the element-wise multiplication, not the dot product).*
+
+## Question 9 - Triangle Inequality for Vectors
+**For which pair of nonzero vectors does ||u + v|| = ||u|| + ||v|| hold exactly?**
+*   ● Vectors in the same direction, such as u and v = 2u
+*   ○ None; for nonzero vectors the inequality is always strict
+*   ○ Perpendicular vectors, such as u = (1, 0) and v = (0, 1)
+*   ○ Vectors in opposite directions, such as u and v = -2u
+
+---
+
+## Rule
+*   **Triangle Inequality:** For any two vectors, the length of their sum is always less than or equal to the sum of their lengths:
+    `||u + v|| ≤ ||u|| + ||v||`
+*   **Equality Condition:** The equality holds *exactly* (meaning `||u + v|| = ||u|| + ||v||`) only when the vectors point in the **same direction** (i.e., one is a positive scalar multiple of the other).
+
+---
+
+## Solution
+*   If vectors point in the **same direction** (like `u` and `2u`), their lengths add up perfectly, just like walking in a straight line.
+*   If vectors are **perpendicular**, they form a right triangle, and the hypotenuse (the sum) is strictly shorter than the sum of the two legs.
+*   If vectors point in **opposite directions** (like `u` and `-2u`), they partially cancel each other out, making the sum shorter.
