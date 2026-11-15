@@ -153,3 +153,79 @@ Before deep learning, computer vision required humans to manually write code to 
 ![](../../00-Attachments/Pasted%20image%2020261115001421.png)
 
 ![](../../00-Attachments/Pasted%20image%2020261115001436.png)
+
+# Neural Network Layer (Forward Propagation)
+
+## Overview
+This note breaks down how a single layer in a neural network computes its outputs. It introduces the mathematical notation for layers, weights, biases, and activations, showing how a layer is essentially just a collection of logistic regression units acting in parallel.
+
+---
+
+## 1. Layer Numbering Notation
+
+In neural networks, we use superscript square brackets `[l]` to denote which layer we are talking about. We do NOT count the input layer.
+
+*   **Input Layer:** `x` (sometimes called Layer 0)
+*   **Hidden Layer 1:** `[1]`
+*   **Hidden Layer 2:** `[2]`
+*   **Output Layer:** The final layer.
+
+![](../../00-Attachments/Pasted%20image%2020261116015625.png)
+---
+
+## 2. The Math inside a Layer
+
+Let's look at **Layer 1** (the first hidden layer). It has 3 neurons, so it will output 3 activation values: `a1`, `a2`, and `a3`.
+
+For each neuron, it performs a logistic regression calculation:
+
+**Neuron 1:**
+`a1^[1] = g( w1^[1] * x + b1^[1] )`  *(Outputs e.g., 0.3)*
+
+**Neuron 2:**
+`a2^[1] = g( w2^[1] * x + b2^[1] )`  *(Outputs e.g., 0.7)*
+
+**Neuron 3:**
+`a3^[1] = g( w3^[1] * x + b3^[1] )`  *(Outputs e.g., 0.2)*
+
+*Note: `g()` is the sigmoid function. `w` and `b` are the weights and biases for that specific neuron.*
+
+---
+
+## 3. Grouping into Vectors (Vectorization)
+
+Instead of writing three separate equations, we group the outputs into a single vector called `a^[1]`.
+
+`a^[1] = [0.3, 0.7, 0.2]`
+
+This vector of activations from Layer 1 then becomes the **input** for Layer 2.
+
+![](../../00-Attachments/Pasted%20image%2020261116015645.png)
+---
+
+## 4. The Final Output Layer
+
+Let's look at **Layer 2** (the output layer). It has only 1 neuron. 
+
+It takes the vector `a^[1]` as its input and performs one final logistic regression:
+
+`a1^[2] = g( w1^[2] * a^[1] + b1^[2] )`
+
+*(Note: This outputs a single scalar value, e.g., 0.84).*
+
+> [!important] The Final Prediction
+> Because Layer 2 has only one neuron and uses the sigmoid function, it outputs a probability.
+> *   If `a^[2] >= 0.5`, we predict **1** (Yes).
+> *   If `a^[2] < 0.5`, we predict **0** (No).
+
+![](../../00-Attachments/Pasted%20image%2020261116015658.png)
+---
+
+## 5. Summary of the Layer Process
+
+A neural network layer is essentially doing this:
+1.  Taking a vector of inputs.
+2.  Applying a weight matrix and bias vector.
+3.  Passing the result through an activation function (like sigmoid).
+4.  Outputting a new vector of activations.
+
