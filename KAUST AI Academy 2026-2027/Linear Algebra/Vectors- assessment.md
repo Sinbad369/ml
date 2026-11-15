@@ -589,3 +589,32 @@ Add them all together:
 *   If vectors point in the **same direction** (like `u` and `2u`), their lengths add up perfectly, just like walking in a straight line.
 *   If vectors are **perpendicular**, they form a right triangle, and the hypotenuse (the sum) is strictly shorter than the sum of the two legs.
 *   If vectors point in **opposite directions** (like `u` and `-2u`), they partially cancel each other out, making the sum shorter.
+![](../../00-Attachments/Pasted%20image%2020261116022209.png)
+
+
+## Question 10 - Dot Product via Angle
+**Vectors u and v have ||u|| = 2, ||v|| = 3, and the angle between them is 120°. What is uᵀv?**
+*   ○ 6
+*   ○ -3√3
+*   ○ 3
+*   ● -3
+
+---
+
+## Rule
+*   **Geometric Definition of Dot Product:** The dot product can be calculated using the magnitudes of the vectors and the angle between them.
+*   **Formula:** `u · v = ||u|| * ||v|| * cos(θ)`
+
+---
+
+## Solution
+1.  Identify the magnitudes: `||u|| = 2`, `||v|| = 3`.
+2.  Identify the angle: `θ = 120°`.
+3.  Recall the unit circle: `cos(120°) = -0.5`.
+4.  Multiply them together:
+    `u · v = 2 * 3 * (-0.5)`
+    `u · v = 6 * (-0.5)`
+    `u · v = -3`
+
+*(Note: A negative dot product means the angle between the vectors is obtuse, i.e., greater than 90°).*
+
